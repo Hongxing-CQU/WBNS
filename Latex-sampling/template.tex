@@ -1,0 +1,224 @@
+%%% template.tex
+%%%
+%%% This LaTeX source document can be used as the basis for your technical
+%%% paper or abstract. Regardless of the length of your document, the commands
+%%% are all the same.
+%%%
+%%% The "\documentclass" command is the first command in your file. If you want to
+%%% prepare a version of your article with line numbers - a "review" version -
+%%% include the "review" parameter:
+ \documentclass[review]{acmsiggraph}
+%%%
+
+%\documentclass{acmsiggraph}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+
+%%% Title of your article or abstract.
+\title{Wasserstein Blue Noise Sampling }
+%\title{Adaptive multi-class blue noise sampling on Wasserstein barycenter}
+\author{papers_0229}
+%\author{Hongxing Qin\thanks{e-mail:qinhx@cqupt.edu.cn},
+ %Yunhai Wang\thanks{e-mail:cloudseawang@gmail.com},
+ %Baoquan Chen\thanks{e-mail:baoquan@sdu.edu.cn} \\
+% Chongqing Key Laboratory of Computational Intelligence,
+%             Chongqing University of Posts \& Telecommunications, Chongqing, China\\
+% Shandong University\\
+%}
+%\author{Yunhai Wang\thanks{e-mail:cloudseawang@gmail.com}\\Shandong University}
+%\author{Baoquan Chen\thanks{e-mail:baoquan@sdu.edu.cn}\\Shandong University}
+\pdfauthor{Stephen N. Spencer}
+
+%%% Used by the ``review'' variation; the online ID will be printed on
+%%% every page of the content.
+
+\TOGonlineid{229}
+
+% User-generated keywords.
+
+\keywords{blue noise sampling,  Wasserstein barycenter, adaptive sampling, surface sampling}
+
+% With the "\setcopyright" command the appropriate rights management text will be added
+% to your document.
+
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+%\setcopyright{rightsretained}
+
+%The year of publication in the "\copyrightyear" command.
+
+\copyrightyear{2016}
+
+%%% Conference information, from the completed rights management form.
+%%% The "\conferenceinfo" command has two parameters:
+%%%    - conference name
+%%%    - conference date and location
+%%% The "\isbn" field includes the year and month after the article ISBN.
+
+\conferenceinfo{SIGGRAPH 2016 Posters}{July 24-28, 2016, Anaheim, CA}
+\isbn{978-1-4503-ABCD-E/16/07}
+\doi{http://doi.acm.org/10.1145/9999997.9999999}
+
+\begin{document}
+
+%%% This is the ``teaser'' command, which puts an figure, centered, below
+%%% the title and author information, and above the body of the content.
+\teaser{
+\begin{center}
+  \centering
+\begin{minipage}{1\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-123.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.25\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-12.png}
+  %\end{minipage}
+   % \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-13.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-23.png}
+    \includegraphics[width=0.135\textwidth]{figure/adaptive-size-1.png}
+  %\end{minipage}
+   % \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-2.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.135\textwidth]{figure/adaptive-size-3.png}
+  \end{minipage}\\
+  \centering
+ \begin{minipage}{1\textwidth}
+  \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere123.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.25\textwidth}
+  \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere1.png}
+  %\end{minipage}
+   % \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere2.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere3.png}
+  \end{minipage}
+  \caption{Multi-class blue noise sampling  with different sizes on a same constant density function.
+  Samples distribution with larger size remains blue noise pattern,
+  and samples distribution with smaller size might deviate from blue noise pattern.
+  The number of samples for each class is $62$,$250$,$1000$ (top) and $100$, $300$, $900$(bottom).
+  The weighted parameters are set as $\lambda_{1,2,3,4}=1/4,1/4,1/4,1/4$.
+  % with$62, 250, 1000$ $100$,
+  % $300$ and $900$ points for each class.
+  }\label{adaptive-size-sampling}
+\end{center}
+}
+\maketitle
+
+\begin{abstract}
+Sampling is a core component for many applications such as imaging,
+rendering, geometry processing and visualization. Prior research
+has mainly focused on blue noise sampling with a single
+class of samples. Limited research has been done on multi-class
+sampling; especially, multi-class blue noise sampling is still a challenge problem
+when the density distribution of every class is nonuniform and vary from each
+other. In this paper, we present a Wasserstein blue
+noise sampling algorithm for multi-class sampling by throwing samples
+as Wasserstein barycenter of multiple density distributions. We
+employ a more general representation of optimal transport problem
+to break the partition necessary in other optimal sampling.
+On one hand, adaptive blue noise distribution property for every
+individual class is guaranteed, as well as their combined class. On
+the other hand, the efficiency of sampling is improved by applying
+Wasserstein distance with entropic constraints. Our method can
+be applied to multi-class sampling on the point set surface. We also
+demonstrate applications in object distribution and color stippling.
+
+%Sampling is a core component for many applications such as imaging,
+%rendering, geometry processing and visualization.
+%Prior research has mainly focused on blue noise sampling with a single class of samples.
+%Even if a few work has been done on multi-class sampling,
+%multi-class blue noise sampling is a challenge problem when the density distribution of every class is nonuniform and different
+%with others.
+%In the paper,
+%we present a Wasserstein blue noise sampling algorithm for multi-class samples by throwing samples as Wasserstein barycenter of multiple density distribution.
+%We applied a more general representation of optimal transport problem to break the partition which is necessary in other optimal sampling.
+%On the one hand,
+%adaptive blue noise distribution property for every individual class is guaranteed as well as their combined class.
+%On the other hand, the efficiency of sampling is improved by applying Wasserstein distance with entropic constraints.
+%Our method can also be applied for multi-class sampling on the point set surface.
+%We demonstrate applications in object distribution and  color stippling.
+
+\end{abstract}
+
+
+
+%\begin{abstract}
+%Sampling is a core component for many applications such as imaging,
+%rendering, geometry processing and visualization.
+%Prior research has mainly focused on blue noise sampling with a single class of samples.
+%Even if a few work has been done on multi-class sampling,
+%multi-class blue noise sampling is a challenge problem when the density distribution of every class is nonuniform and different
+%with others.
+%In the paper,
+%we present an Wasserstein blue noise sampling algorithm for multi-class samples by throwing samples as Wasserstein barycenter of multiple density distribution.
+%On the one hand,
+%adaptive blue noise distribution property for every individual class
+%is guaranteed as well as their combined class.
+%On the other hand, the efficiency of sampling is improved by applying Wasserstein distance with entropic constraints.
+%At the same time, our method can also be applied for multi-class sampling with changed size and multi-class sampling on the point set surface.
+%We demonstrate applications in object distribution and  color stippling.
+
+%\end{abstract}
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below.
+%
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010371.10010382</concept_id>
+<concept_desc>Computing methodologies~Image manipulation</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010371.10010382.10010236</concept_id>
+<concept_desc>Computing methodologies~Computational photography</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Image manipulation}
+\ccsdesc[300]{Computing methodologies~Computational photography}
+
+%
+% End generated code
+%
+
+% The next three commands are required, and insert the user-generated keywords,
+% The CCS concepts list, and the rights management text.
+% Please make sure there is a blank line between each of these three commands.
+
+\keywordlist
+
+\conceptlist
+
+\printcopyright
+
+\input{introduction}
+\input{related-work}
+\input{algorithm}
+\input{analysis}
+\input{application}
+\input{conclusion}
+
+\section*{Acknowledgements}
+
+\bibliographystyle{acmsiggraph}
+\nocite{*}
+\bibliography{template}
+\end{document}

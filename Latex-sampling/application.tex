@@ -1,0 +1,98 @@
+\section{Application}
+
+\begin{figure*}[htb]
+  \centering
+ 
+  \includegraphics[width=0.9\textwidth]{figure/noisey.png}
+  \caption{Surface reconstruction of noisy point clouds. 
+  The number of original noisy points is $8856$.
+  The number of samples is $3946$. }\label{surface-reconstruction}
+\end{figure*}
+
+\begin{figure*}[htb]
+  \centering
+   \begin{minipage}{1\textwidth}
+  \includegraphics[width=0.245\textwidth]{figure/gs-123.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.25\textwidth}
+  \includegraphics[width=0.245\textwidth]{figure/gs-1.png}
+  %\end{minipage}
+   % \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.245\textwidth]{figure/gs-2.png}
+  %\end{minipage}
+  %  \begin{minipage}{0.23\textwidth}
+  \includegraphics[width=0.245\textwidth]{figure/gs-3.png}
+  \end{minipage}
+  \caption{Object placement on a complex geometry model.
+  The number of samples of each class is $200$, $1000$ and $1000$.}\label{gs-sampling}
+\end{figure*}
+
+
+\textbf{Surface reconstruction of noisy point clouds.}
+Surface reconstruction of noisy point clouds is a challenging problem.
+If we take original point clouds with noise as a discrete probability measure of a two dimensional surface,
+and take samples on the surface as another discrete probability measure,
+samples on the surface is the Wasserstein barycenter of original point clouds.
+Then,
+we can apply a single class blue noise sampling to generate samples on the surface.
+Fig.~\ref{surface-reconstruction} shows an example for surface reconstruction of point clouds with heavy noisy.
+
+\textbf{Object distribution.}
+Object placement without regularity artifacts plays an important role in texture synthesis.
+Blue noise sampling provides a feasible approach for such distribution.
+However,
+it is a considerable problem how to place multi-class objects with different size on the surface.
+Our approach can be directly applied for this purpose.
+Figure~\ref{adaptive-size-sampling} shows an example for placing three class objects with different size on a square.
+Figure~\ref{adaptive-size-sampling} and Figure~\ref{gs-sampling} shows two example for placing three class objects with different size on two dimensional surface.
+
+\textbf{Color stippling.}
+Color stippling is another very important application via blue noise sampling.
+We can apply our method for multi-class color stippling on CMY-RGB-K color model using the input image as a weighted density filed,
+The weighted value represents the importance of each color channel and is used to set the number of each color dots.
+More dots will be placed in the
+area where the corresponding color is dominant.
+The discrete probability value $\bar\rho_k$ is set as a constant $1/N_k$ for every class.
+As shown in Figure~\ref{Color stippling},
+our method can achieve reasonably color stippling.
+Note that the visual quality depends on color decomposition and blending method.
+
+\textbf{Visual abstraction}
+Scatterplots are widely used to visualize scatter dataset.
+When multi-class scattered points are shown within a single scatterplot view, heavy overdraw of different class points makes it inefficient for analysis(Figure~\ref{visual-abstraction}).
+We apply our algorithm to reduce the overdraw of original scattered points and preserves the point distributions in Figure~\ref{visual-abstraction}.
+Compared with dart throwing method~\cite{wei:2010:multi,chen:2014:visual},
+it is not necessary to compute a continuous density function for each class in our method.
+
+
+
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=0.50\textwidth]{figure/corner-2.png}
+   \caption{Color stippling by using the RGB-CMYK color model.
+  The number of samples is 48k.  }\label{Color stippling}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  % Requires \usepackage{graphicx}\textwidth
+ % \subfigure[]{
+ % \label{fig:eight:a}
+ % \includegraphics[width=0.10\textwidth]{figure/magic-cbue-original.png}}
+ % \subfigure[]{
+ %  \label{fig:eight:b}
+ % \includegraphics[width=0.25\textwidth]{figure/magic-cube.png}}\\
+    \subfigure[]{
+  \label{fig:eight:a}
+  \includegraphics[width=0.4\textwidth]{figure/scatter-plot-1.png}}
+  \subfigure[]{
+   \label{fig:eight:b}
+  \includegraphics[width=0.4\textwidth]{figure/scatter-plot-sampling-1.png}}
+
+  \caption{Visual abstraction of multi-class scatterplots.
+   The numbers of original points in(a) are 14880, 14130, and 12600 for yellow, red and blue points.
+   The numbers of samples in (b) are 496,471,420.}
+   \label{visual-abstraction}
+\end{figure}
+
+

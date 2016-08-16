@@ -1,0 +1,172 @@
+\section{Related work}
+
+\subsection{Blue noise sampling}
+Blue noise distribution was introduced to solve
+problems of image anti-aliasing~\cite{dippe:1985:antialiasing}. For
+the huge applied values of its natural property (random and uniform
+distributions which matches the distribution of retina cell on human eyes),
+it has been widely used to solve diverse kinds of problems in computer
+graphics.
+There are three classical methods to generate blue noise
+distributions.
+The first one is stochastic sampling.
+Dart throwing was firstly introduced by
+Cook in 1986~\cite{cook:1986:stochastic}. During the sampling, dart throwing positions
+samples one by one randomly and accepts a new sample just when there are no
+other samples within a disk of given radius surrounding it. The basic idea
+is simple and easy to implement but extremely time-consuming, it even might
+not stop. Since then, many variations of dart throwing were proposed to
+solve the problem~\cite{Mitchell:1987:generating,dunbar:2006:spatial,white:2007:poisson,wei:2008:parallel,gamito:2009:accurate,ebeida:2011:efficient}.
+However, it is difficult to control the number of points generated with these method,
+and produced distribution is also with relatively high variance
+by today¡¯s standards.
+
+Optimal sampling is another type of methods to generate higher quality sampling.
+A well-known approach in this class is Lloyd relaxation~\cite{lloyd:1982:least}.
+The basic idea of this method
+is to relax the original distribution to make it own blue noise
+characteristics and improve the spectrum properties\cite{mccool:1992:hierarchical}.
+However, the produced samples suffers from too much regularity which causes aliasing problem.
+% First, a original sampling distribution
+%is obtained by traditional sampling methods. Second, the original ~\cite{balzer:2009:capacity} \cite{de:2012:blue}
+%distribution is relaxed by Lloyd relaxation\cite{lloyd:1982:least} .
+%Finally, the distribution with blue noise characteristics is generated. The
+To improve the irregularity,
+Baler et al.~\cite{balzer:2009:capacity} proposed a variant of Lloyd's method with capacity constraint(CCVT)
+which enforces that each point obtains equal importance in the distribution.
+~\cite{xu:2011:capacity} proposed Capacity-Constrained Delaunay Triangulation (CCDT) by replacing Voronoi cell of CCVT with Delaunay triangulation.
+Furthermore, CCDT is extended to Capacity-constrained Surface Triangulation(CCST)~\cite{xu:2012:blue} for surface sampling.
+Goes et al.\cite{de:2012:blue}(BOT) thought of CCVT as an optimal transport problem in
+the space of power diagrams.
+In addition to Lloyd's method,
+the kernel density model is also applied for optimal sampling.
+In~\cite{fattal:2011:blue},
+Fattal used a rdially-symmetric kernel function to produce an approximated density function.
+The difference between the approximation and the given target point density function assigns an energy value to the points configuration.
+Jiang et al.~\cite{jiang:2015:blue} used a kernel function to apply the smoothed particle hydrodynamics method for a variety of controllable blue noise sample patterns.
+Compared with \cite{de:2012:blue},
+our approach is generalized as a minimization of Wasserstein distance
+by using the transport plan instead of the partition in \cite{de:2012:blue}.
+Thus, our approach is feasible for multi-class sampling.
+
+
+\subsection{Multi-class sampling}
+\cite{Wang:1999:BlueNoise} studied the power spectrum characteristics of combined blue noise patterns and proposed a multi-class blue noise sampling approach on digital filter techniques.
+However, the approach is constrained to uniform/regular/discrete sampling.
+\cite{wei:2010:multi}, \cite{schmaltz:2012:multi} and \cite{jiang:2015:blue} proposed multi-class sampling
+approach by enforcing blue noise property via an interaction matrix which
+encodes the spacing between class pairs.
+However, the matrix can exhibit discontinuous changes in the off-diagonal entries.
+~\cite{chen:2012:variational} proposed a multi-class sampling strategy on with capacity-constrained Voronoi tessellation.
+Two stage algorithm
+ is applied for optimization of point distribution.
+The first stage is the optimal procedure for each individual class,
+and the second state is the optimal procedure for the combined class.
+In our approach,
+the combined class is directly thought of as a single class.
+Normalized parameters are used to balance blue noise properties of different classes.
+Compared with~\cite{Wang:1999:BlueNoise},
+our approach preserved blue noise patterns in the density space other than in the spectrum space.
+Compared with~\cite{chen:2012:variational},
+our approach optimizes the point distribution of each individual class and that of the combined class simultaneously.
+
+\begin{figure}[htb]
+\centering
+\subfigure[]{
+\label{one-class-a}
+   \includegraphics[width=.4\textwidth]{figure/one-class-1024.png}
+}
+\subfigure[]{
+\label{one-class-b}
+   \includegraphics[width=.45\textwidth]{figure/ramp-1.png}
+}
+\caption{
+Comparisons of CCVT, BOT and our algorithm for a single class blue noise sampling.
+(a) shows the comparison for the case of constant density.
+(b) shows the comparison on for the case of a quadratic density function. }
+\label{one-class-sampling}
+\end{figure}
+
+
+\begin{figure*}[htb]
+\centering
+\subfigure[{ Dart throwing [Wei 2010]}]{
+   \includegraphics[width=0.33\textwidth]{figure/2-weiliyi.png}
+   \label{two-class-sampling-a}
+}%
+\hspace{0.1in}
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/3,1/3,1/3$}]{
+   \includegraphics[width=.33\textwidth]{figure/2-111.png}
+   \label{two-class-sampling-a}
+}\\
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/4,1/4,2/4$}]{
+   \includegraphics[width=.33\textwidth]{figure/2-112.png}
+   \label{two-class-sampling-c}
+}%
+\hspace{0.1in}
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/8,1/8,6/8$}]{
+   \includegraphics[width=.33\textwidth]{figure/2-116.png}
+}%
+\caption{The comparison of Wei's algorithm and our algorithm for two-class blue noise sampling.
+In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ is the weighted parameters for red samples, blue samples and the combined samples.
+The number of samples for each class is 1000.
+The weighted parameter $\lambda_i$ makes an influence on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
+Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
+}\label{two-class-sampling}
+\end{figure*}
+\subsection{Wasserstein barycenter}
+For completeness, we briefly review Wasserstein barycenter next.
+By analogy with the barycenter of points $(x_1,...,x_n)$ in the Euclidean space, which is obtained as the minimizer of $x\leftarrow\sum_{i=1}^n||x-x_i||^2$,
+Wasserstein barycenter is defined as the barycenter of probability measure $\nu_1,...,\nu_n$ in the Wasserstein space
+by replacing the Euclidean distance with the Wasserstein distance.
+
+For an arbitrary space $\Omega$,
+we use $d:\Omega\times\Omega\rightarrow{\mathbb{R}}_+$ to denote the distance metric,
+so $d(x,y)$ is the shortest distance form $x$ to $y$ along $\Omega$.
+We use $P(\Omega)$ to indicate the set of probability measures on $\Omega$,
+and $P(\Omega\times\Omega)$ to indicate the set of probability measures on the product space $\Omega\times\Omega$.
+%\begin{equation*}
+% P(\Omega)=\{\mu|\mu(\phi)=0,\mu(\Omega)=1, 0\leq\mu(U)\leq 1 (U\subseteq\Omega)\}.
+%\end{equation*}
+%For any point $x\in\Omega$, $\delta_x$ is the Dirac unit mass on $x$.
+
+For probability measures $\mu$ and $\nu$ in $P(\Omega)$,
+the $p$-Wasserstein distance~\cite{villani:2008:optimal} between $\mu$ and $\nu$ is defined as
+\begin{equation*}
+  W_p(\mu,\nu)=\left(\inf\limits_{\pi\in\prod(\mu,\nu)}\int_{\Omega\times\Omega}d(x,y)^pd\pi(x,y)\right )^{1/p}, (p\geq1)
+\end{equation*}
+where $\prod(\mu,\nu)$ is the subset in $P(\Omega\times\Omega)$, and meets mass conservation laws
+\begin{equation*}
+\prod(\mu,\nu)=\{\pi\in P(\Omega,\Omega)|\pi(\cdot,\Omega)=\mu,\pi(\Omega,\cdot)=\nu\}.
+\end{equation*}
+$\pi$ is a transportation plan,
+which describes the amount of mass $\pi(x,y)$ to be placed from $\mu$ at $x$ towards $y$ to create $\nu$ in aggregate.
+Thus,
+Wasserstein distance describes the minimum cost of transporting the source $\mu$ to the target $\nu$.
+
+% $\mu(U)=\int_{U\in\Omega}\rho(x)dx$, $(\rho(x)\geq0)$
+% is a probability density function on the space $\Omega$ and $\int_{\Omega}\rho(x)dx=1$.
+%$x,y\in\Omega$, $d(x,y)$ is the cost for transporting one unit of mass from $x$ to $y$, $\prod(\mu,\nu)$ is the set of all probability measures on $\Omega^2$
+ % that have magrinals $\mu$ and $\nu$.
+
+Based on Wasserstein distance,
+Wasserstein barycenter~\cite{agueh:2011:barycenters,cuturi:2013:fast,BTSSPP:2016:Wasserstein} of $N$ probability measures ${\nu_1,...,\nu_N}$ in $P(\Omega)$ is defined as:
+\begin{equation}\label{WB}
+%\begin{split}
+    \mu=\arg\min\limits_\mu\sum\limits_{i=1}^N\lambda_iW_p^p(\mu,\nu_i)  \quad
+    s.t. \sum\limits_{i=1}^N\lambda_i=1, \lambda_i\geq0
+%\end{split}
+\end{equation}
+Wasserstein barycenter is an optimal probability measure $\mu$ to approximate probability measures ${\nu_1,...,\nu_N}$ with weight in Wasserstein space.
+If $\mu$ is a discrete probability measure,
+Wasserstein barycenter of probability measures ${\nu_1,...,\nu_N}$ is sampling with capacity constrain in the space $\Omega$.
+Thus,
+Wasserstein barycenter is a general framework for sampling in the space $\Omega$.
+
+
+
+
+
+
+
+
