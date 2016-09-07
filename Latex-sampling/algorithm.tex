@@ -8,7 +8,7 @@ Given an arbitrary space $\Omega$ and a density function $\varrho(x)$ on the spa
 a probability measure is defined as:
 \begin{equation}\label{probability-measure}
   \begin{split}
-  \nu(U)=\int_U\rho(x)dx, U\subseteq\Omega \\
+  \nu(U)=\int_U\varrho(x)dx, U\subseteq\Omega \\
   s.t. \int_{\Omega}\varrho(x)dx=1,\varrho(x)\geq0
   \end{split}
 \end{equation}
@@ -39,7 +39,7 @@ where $X=\{x_1,x_2,...,x_n\}\subseteq\Omega$.
 
 Compared with previous methods on CCVT,
 Wasserstein barycenter provides a more general framework for sampling.
-Previous methods on CCTV are special cases of Eq.~\ref{single-class-problem} with an implicit constrain on  transport plan $\pi$,
+Previous methods on CCVT are special cases of Eq.~\ref{single-class-problem} with an implicit constrain on  transport plan $\pi$,
 that is
 \begin{equation}\label{eq:transform-plan}
   \pi(x_i,y)\cdot\pi(x_j,y)=0 \quad(i\neq j).
@@ -56,9 +56,11 @@ We will discuss the reason in the next subsection.
 
 \subsection{Multi-class blue noise sampling}
 For multi-class sampling,
-we will compute $N$-class sampling points for $m$-class probability density functions.
-Let $\{\varrho_1,\cdots,\varrho_N\}$ be a series of individual probability density functions,
-which will be sampled, on the space $\Omega$.
+we will compute $N$-class sampling points for $m$-class probability density functions,
+where $N$ is the number of individual probability density functions and
+$m-N(m>N)$ is the number of combined probability density functions.
+Let $\{\varrho_1,\cdots,\varrho_N\}$ be a series of individual probability density functions
+to be sampled on the space $\Omega$.
 Let $\varrho_{i_1,...,i_k}(k\leq N)$
 be a combined probability density function of the combined class,
 which is combined by the $i_1th,...,i_kth$ classes.
@@ -69,14 +71,17 @@ which is combined by the $i_1th,...,i_kth$ classes.
 \begin{equation*}
 \varrho_{i_1,i_2,...,i_k}=(\varrho_{i_1}+\varrho_{i_2}+...,+\varrho_{i_k})/k
 \end{equation*}
-Assumed sampling points of the probability function $\varrho_i$ is $X_i$,
+Let $X_i$ is sampled from the probability density function $\varrho_i$,
 \begin{equation*}
-  X_i=\{x_i^1,x_i^2,...,x_i^{n_i}\}\quad(1\leq i\leq N), x_i^j\in\Omega(1\leq j\leq n_i).
+  X_i=\{x_i^1,x_i^2,...,x_i^{n_i}\}\quad(1\leq i\leq N), x_i^j\in\Omega(1\leq j\leq n_i),
 \end{equation*}
+where $n_i$ is the number of sampling points $X_i$.
+
 For multi-class blue noise sampling,
-each individual class as well as combined classes exhibit blue noise characteristics~\cite{wei:2010:multi}.
-It means that every class sampling points $X_i$ captures the probability function $\varrho_i$ well,
+every class sampling points $X_i$ captures the probability function $\varrho_i$ well,
 and combined sampling points $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$ captures the probability density function $\varrho_{i_1,i_2,...,i_k}$ well too.
+For multi-class blue noise sampling,
+both each individual class and combined classes exhibit blue noise characteristics~\cite{wei:2010:multi}.
 
 In terms of Eq.~\ref{probability-measure},
 there is a corresponding probability measure $\nu_i(1\leq i\leq 2^N-1)$ for every $\varrho_i$ or  $\varrho_{{i_1,i_2,...,i_k}}$.
@@ -99,22 +104,26 @@ $\mu_i(1\leq i\leq N)$  is a discrete probability measure corresponding to $X_i$
 $\mu_i(N < i\leq K)$ is a discrete probability measure corresponding to combined sampling points.
 
 In extended version of~\cite{wei:2010:multi},
-Wei pointed out that multi-class relaxation might get stuck in local minimums with insufficient sample
-uniformity for a simple reason: for a given sample $s$,
+Wei pointed out that multi-class sampling on traditional relaxation method~\cite{balzer:2009:capacity}
+ might result in insufficient sample
+uniformity for the reason: for a given sample $s$,
 different class combinations may have different opinions about the desired centroid
 location to which $s$ should move.
 In essence,
-conflicts of desired centroid locations are introduced by the constrain on transport plans $\pi$ (Eq.~\ref{eq:transform-plan}).
-In combined Wasserstein barycenter Eq.~\ref{eq:combined-wasserstein-barycenter},
-the constrain is broken via a general transport plan $\pi$.
-First,
-$\pi$ is a global transport plan other than a local transport plan,
-which is constrained in a local partition,
-such as discrete points~\cite{balzer:2009:capacity},
-Voronoi diagram~\cite{chen:2012:variational} or Power diagram~\cite{de:2012:blue}.
-Second,
-$\pi$ is a separable transport plan,
-which means the mass located in a small region can be transported to different samples other than only one sampling point.
+conflicts of desired centroid locations are introduced by the hard constrain on transport plans $\pi$ (Eq.~\ref{eq:transform-plan}).
+In traditional relaxation method~\cite{balzer:2009:capacity},
+the mass in a certain domain can only be transported to the nearest sampling point.
+Thus, the transport plan is local,
+and the minimum unit of transported mass is constrained by the resolution of the domain.
+The two limits make relaxing conflicts of desired centroid locations more difficult.
+
+To preserve sufficient sample uniformity for multi-class sampling,
+the constrain on the transport plan(Eq.~\ref{eq:transform-plan})
+is broken via a more general transport plan $\pi$ in combined Wasserstein barycenter Eq.~\ref{eq:combined-wasserstein-barycenter}.
+On the one hand,
+$\pi$ is a separable transport plan in~\ref{eq:combined-wasserstein-barycenter},
+which means the mass located in a small domain can be transported to different samples other than only one sampling point.
+It extends the minimum unit of transported mass to computational accuracy.
 Furthermore,
 we relax transport plans via entropic regular terms as~\cite{cuturi:2013:sinkhorn}.
 Regularized Wasserstein distance is defined as
@@ -123,7 +132,27 @@ Regularized Wasserstein distance is defined as
 \end{equation}
 where $\epsilon$ is a positive regularization parameter,
 and $H(\pi)$ is the entropy of $\pi$.
-More details can be found in~\cite{cuturi:2013:sinkhorn}.
+Entropic regular terms expands transport range to whole domain other than nearest transport in traditional relaxation method~\cite{balzer:2009:capacity}.
+It provide more freedom for reducing conflicts of desired centroid.
+Compared with multi-class sampling~\cite{wei:2010:multi},
+our approach is an efficient relaxation method for multi-class blue noise sampling.
+
+% other than a local transport plan.
+%It make it possible to reduce the conflict in a more wide domain.
+%In combined Wasserstein barycenter Eq.~\ref{eq:combined-wasserstein-barycenter},
+%the constrain is broken via a general transport plan $\pi$.
+%First,
+%$\pi$ is a global transport plan other than a local transport plan,
+%which is constrained in a local partition,
+%such as discrete points~\cite{balzer:2009:capacity},
+%Voronoi diagram~\cite{chen:2012:variational} or Power diagram~\cite{de:2012:blue}.
+%Second,
+%$\pi$ is a separable transport plan,
+%which means the mass located in a small region can be transported to different samples other than only one sampling point.
+%Furthermore,
+%we relax transport plans via entropic regular terms as~\cite{cuturi:2013:sinkhorn}.
+
+%More details can be found in~\cite{cuturi:2013:sinkhorn}.
 
 %\subsection{Numerical Optimization}
 
