@@ -4,7 +4,7 @@ such as rendering~\cite{Mitchell:1987:generating},
 imaging~\cite{Robert:1988:dithering},
 geometry processing~\cite{Oztireli:10:Spectral}
 and visualization~\cite{chen:2014:visual}.
-Today, there are
+Today, there is
 a large number of sampling patterns.
 The blue noise sampling distribution yields superior
 image quality over alternative distributions with the same
@@ -13,10 +13,10 @@ a human being is a blue noise distribution~\cite{Yellott:1983:retina}.
 Due to its importance,
 blue noise sampling has been researched extensively in last decades.
 Prior research mainly focus on a single class sampling.
-In fact, multi-class of samples is involved in a variety of sampling problem ,
+In fact, multi-class of samples is involved in a variety of sampling problems ,
 such as color stippling, visual abstraction of multi-class scatterplots,
 and so on.
-In these situation,
+In these situations,
 blue noise distribution property needs to be preserved for every individual class of samples
 and their union simultaneously.
 Although optimal sampling~\cite{balzer:2009:capacity,chen:2012:variational,de:2012:blue} generates good distribution with blue noise property,
@@ -34,13 +34,13 @@ Failure case of multi-class sampling cannot be avoided~\cite{wei:2010:multi,chen
 Multi-class blue noise sampling is still a challenging problem,
 although there are a few works on the issue recently.
 Based on the analysis of power spectrum characteristics of combined classes,
-digital filter techniques is applied to generate a multi class samples in ~\cite{Wang:1999:BlueNoise}.
+digital filter techniques are applied to generate multi class samples in ~\cite{Wang:1999:BlueNoise}.
 In their methods, $2^n-1$ kinds of combined patters need to be created,
-where $n$ is the number of class.
-Thus, the problem tends to be more complicated with the increasing of the number of class.
+where $n$ is the number of classes.
+Thus, the problem tends to be more complicated with the increasing number of classes.
 Dart throwing is extended to generate multi-class samples in ~\cite{wei:2010:multi}.
 The main idea is to create a conflict matrix on accumulated two class sampling for explicit control of sample spacing.
-However, it is a difficult to set the off-diagonal element of the conflict matrix
+However, it is a difficult to set the off-diagonal elements of the conflict matrix
 to balance blue noise property of the individual class and that of the combined class
 when the density distribution of every class is nonuniform and different with others.
 In~\cite{chen:2012:variational},
@@ -52,7 +52,7 @@ prohibits  optimizing the point distribution of
 the combined class as well as the individual classes simultaneously.
 
 
-In the paper, we present an Wasserstein blue noise sampling algorithm by
+In this paper, we present an Wasserstein blue noise sampling algorithm by
 throwing samples as Wasserstein barycenter of multiple density distribution.
 Blue noise property of every individual class and combined classes
 is preserved by setting separately every individual density distribution and every combined density distribution as an independent density distribution to
@@ -74,12 +74,12 @@ It is questionable whether an adaptable partitioning for multi-class sampling ca
 Thus, we must study a more general algorithm which is feasible for multi-class sampling,
 adaptive sampling, and surface sampling.
 
-In the paper, we present an adaptive multi-class blue noise sampling algorithm by
+In this paper, we present an adaptive multi-class blue noise sampling algorithm by
 throwing samples as Wasserstein barycenter of multiple density distribution.
 It computes point distributions to minimize Wasserstein distance.
 %Blue noise property of every individual class and combined classes
 %is preserved simultaneously.
-Experiments show that our result are with high-quality blue noise spectrum for every individual class and the combined class.
+Our experiments show that our result can generate high-quality blue noise spectrum for every individual class and the combined class.
 Our contributions are as follows:
 \begin{itemize}
 \item We formulate multi-class sampling as a constrained Wasserstein barycenter of multiple density functions.

@@ -55,10 +55,13 @@ It also introduces "failure case" for multi-class sampling~\cite{wei:2010:multi}
 We will discuss the reason in the next subsection.
 
 \subsection{Multi-class blue noise sampling}
-For multi-class sampling,
-we will compute $N$-class sampling points for $m$-class probability density functions,
-where $N$ is the number of individual probability density functions and
-$m-N(m>N)$ is the number of combined probability density functions.
+%For multi-class sampling,
+%we will compute $N$-class sampling points for $m$-class probability density functions,
+%where $N$ is the number of individual probability density functions and
+%$m-N(m>N)$ is the number of combined probability density functions.
+In multi-class sampling,
+sampling points are drawn from $N$-class individual probability distribution
+and $M$-class combined probability distribution.
 Let $\{\varrho_1,\cdots,\varrho_N\}$ be a series of individual probability density functions
 to be sampled on the space $\Omega$.
 Let $\varrho_{i_1,...,i_k}(k\leq N)$
@@ -245,7 +248,7 @@ and $V_{y_i^j}$ is the area with density $\varrho_k(y_i^j)$ at the point $y_i^j$
 $\varrho_i$ is approximated with a positive piecewise constant function,
 $\varrho_i$ is the probability density function of the probability measure $nu_i$,
 and $m_i$ is the number of discrete points of the $i$th-class probability measure $\nu_i$.
-In the paper,
+In this paper,
 we apply a regular discretization with same area for all sampling points $y_i^j$.
 We also apply same sampling points for all probability measures $\nu_i$, that is
 \begin{equation*}
@@ -288,7 +291,7 @@ More details can be found in~\cite{cuturi:2013:sinkhorn,cuturi:2013:fast,benamou
 
 
 
-Assumed that $\Pi_k(k=1,...,K)$ is fixed,
+Assuming that $\Pi_k(k=1,...,K)$ is fixed,
 variational formula Eq.~\ref{eq:discrete-multi-problem}
 is the sum of a convex quadratic function of $\mathbf{X}$ when $p=2$.
 If we only update $\mathbf{X}_i$ every iteration,
@@ -317,10 +320,10 @@ shows the pseudocode of this schedule.
   % Requires \usepackage{graphicx}\textwidth
   \subfigure[{Dart throwing [Wei 2010]}]{
 
-  \includegraphics[width=0.85\textwidth]{figure/3-class-weiliyi.png}}
+  \includegraphics[width=1.0\textwidth]{figure/3-class-weiliyi.png}}
   \subfigure[Our method]{
 
-  \includegraphics[width=0.85\textwidth]{figure/3-class-our.png}}
+  \includegraphics[width=1.0\textwidth]{figure/3-class-our.png}}
   \caption{The comparison of Wei's algorithm and our algorithm for three-class blue noise sampling.
   $\lambda_{1,2,3,4,5,6,7}=1/18,1/18,1/18,2/18,2/18,2/14,9/18$.
   $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for each individual class.

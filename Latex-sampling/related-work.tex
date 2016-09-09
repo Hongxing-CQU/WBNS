@@ -15,7 +15,7 @@ Cook in 1986~\cite{cook:1986:stochastic}. During the sampling, dart throwing pos
 samples one by one randomly and accepts a new sample just when there are no
 other samples within a disk of given radius surrounding it. The basic idea
 is simple and easy to implement but extremely time-consuming, it even might
-not stop. Since then, many variations of dart throwing were proposed to
+not terminate. Since then, many variations of dart throwing were proposed to
 solve the problem~\cite{Mitchell:1987:generating,dunbar:2006:spatial,white:2007:poisson,wei:2008:parallel,gamito:2009:accurate,ebeida:2011:efficient}.
 However, it is difficult to control the number of points generated with these method,
 and produced distribution is also with relatively high variance
@@ -24,26 +24,26 @@ by today¡¯s standards.
 Optimal sampling is another type of methods to generate higher quality sampling.
 A well-known approach in this class is Lloyd relaxation~\cite{lloyd:1982:least}.
 The basic idea of this method
-is to relax the original distribution to make it own blue noise
-characteristics and improve the spectrum properties\cite{mccool:1992:hierarchical}.
-However, the produced samples suffers from too much regularity which causes aliasing problem.
+is to relax the original distribution to make it obtain blue noise
+characteristics and improve the spectrum properties~\cite{mccool:1992:hierarchical}.
+However, the produced samples suffer from too much regularity which causes aliasing problem.
 % First, a original sampling distribution
 %is obtained by traditional sampling methods. Second, the original ~\cite{balzer:2009:capacity} \cite{de:2012:blue}
 %distribution is relaxed by Lloyd relaxation\cite{lloyd:1982:least} .
 %Finally, the distribution with blue noise characteristics is generated. The
 To improve the irregularity,
-Baler et al.~\cite{balzer:2009:capacity} proposed a variant of Lloyd's method with capacity constraint(CCVT)
+Baler et al.~\shortcite{balzer:2009:capacity} proposed a variant of Lloyd's method with capacity constraint(CCVT)
 which enforces that each point obtains equal importance in the distribution.
 ~\cite{xu:2011:capacity} proposed Capacity-Constrained Delaunay Triangulation (CCDT) by replacing Voronoi cell of CCVT with Delaunay triangulation.
 Furthermore, CCDT is extended to Capacity-constrained Surface Triangulation(CCST)~\cite{xu:2012:blue} for surface sampling.
-Goes et al.\cite{de:2012:blue}(BOT) thought of CCVT as an optimal transport problem in
+De Goes et al.~\cite{de:2012:blue} thought of CCVT as an optimal transport problem in
 the space of power diagrams.
 In addition to Lloyd's method,
 the kernel density model is also applied for optimal sampling.
 In~\cite{fattal:2011:blue},
-Fattal used a rdially-symmetric kernel function to produce an approximated density function.
+Fattal used a radially-symmetric kernel function to produce an approximated density function.
 The difference between the approximation and the given target point density function assigns an energy value to the points configuration.
-Jiang et al.~\cite{jiang:2015:blue} used a kernel function to apply the smoothed particle hydrodynamics method for a variety of controllable blue noise sample patterns.
+Jiang et al.~\shortcite{jiang:2015:blue} used a kernel function to apply the smoothed particle hydrodynamics method for a variety of controllable blue noise sample patterns.
 Compared with \cite{de:2012:blue},
 our approach is generalized as a minimization of Wasserstein distance
 by using the transport plan instead of the partition in \cite{de:2012:blue}.
@@ -51,22 +51,22 @@ Thus, our approach is feasible for multi-class sampling.
 
 
 \subsection{Multi-class sampling}
-\cite{Wang:1999:BlueNoise} studied the power spectrum characteristics of combined blue noise patterns and proposed a multi-class blue noise sampling approach on digital filter techniques.
+Wang and Parker~\shortcite{Wang:1999:BlueNoise} studied the power spectrum characteristics of combined blue noise patterns and proposed a multi-class blue noise sampling approach on digital filter techniques.
 However, the approach is constrained to uniform/regular/discrete sampling.
-\cite{wei:2010:multi}, \cite{schmaltz:2012:multi} and \cite{jiang:2015:blue} proposed multi-class sampling
+Wei\shortcite{wei:2010:multi}, Schmaltz et al.\shortcite{schmaltz:2012:multi} and Jiang et al.\shortcite{jiang:2015:blue} proposed multi-class sampling
 approach by enforcing blue noise property via an interaction matrix which
 encodes the spacing between class pairs.
 However, the matrix can exhibit discontinuous changes in the off-diagonal entries.
-~\cite{chen:2012:variational} proposed a multi-class sampling strategy on with capacity-constrained Voronoi tessellation.
+Chen et al.~\shortcite{chen:2012:variational} proposed a multi-class sampling strategy based on capacity-constrained Voronoi tessellation.
 Two stage algorithm
- is applied for optimization of point distribution.
+ is applied for optimization of point distributions.
 The first stage is the optimal procedure for each individual class,
 and the second state is the optimal procedure for the combined class.
 In our approach,
 the combined class is directly thought of as a single class.
 Normalized parameters are used to balance blue noise properties of different classes.
 Compared with~\cite{Wang:1999:BlueNoise},
-our approach preserved blue noise patterns in the density space other than in the spectrum space.
+our approach preserves blue noise patterns in the density space other than in the spectrum space.
 Compared with~\cite{chen:2012:variational},
 our approach optimizes the point distribution of each individual class and that of the combined class simultaneously.
 
@@ -91,24 +91,24 @@ Comparisons of CCVT, BOT and our algorithm for a single class blue noise samplin
 \begin{figure*}[htb]
 \centering
 \subfigure[{ Dart throwing [Wei 2010]}]{
-   \includegraphics[width=0.33\textwidth]{figure/2-weiliyi.png}
+   \includegraphics[width=0.45\textwidth]{figure/2-weiliyi.png}
    \label{two-class-sampling-a}
 }%
 \hspace{0.1in}
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/3,1/3,1/3$}]{
-   \includegraphics[width=.33\textwidth]{figure/2-111.png}
+   \includegraphics[width=.45\textwidth]{figure/2-111.png}
    \label{two-class-sampling-a}
 }\\
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/4,1/4,2/4$}]{
-   \includegraphics[width=.33\textwidth]{figure/2-112.png}
+   \includegraphics[width=.45\textwidth]{figure/2-112.png}
    \label{two-class-sampling-c}
 }%
 \hspace{0.1in}
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=1/8,1/8,6/8$}]{
-   \includegraphics[width=.33\textwidth]{figure/2-116.png}
+   \includegraphics[width=.45\textwidth]{figure/2-116.png}
 }%
 \caption{The comparison of Wei's algorithm and our algorithm for two-class blue noise sampling.
-In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ is the weighted parameters for red samples, blue samples and the combined samples.
+In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ are the weighted parameters for red samples, blue samples and the combined samples.
 The number of samples for each class is 1000.
 The weighted parameter $\lambda_i$ makes an influence on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
 Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.

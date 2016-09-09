@@ -9,7 +9,6 @@
 %%% include the "review" parameter:
  \documentclass[review]{acmsiggraph}
 %%%
-
 %\documentclass{acmsiggraph}
 \usepackage{subfigure}
 \usepackage{graphicx}
@@ -108,8 +107,8 @@
   \caption{Multi-class blue noise sampling  with different sizes on a same constant density function.
   Samples distribution with larger size remains blue noise pattern,
   and samples distribution with smaller size might deviate from blue noise pattern.
-  The number of samples for each class is $62$,$250$,$1000$ (top) and $100$, $300$, $900$(bottom).
-  The weighted parameters are set as $\lambda_{1,2,3,4}=1/4,1/4,1/4,1/4$.
+  The number of samples for each class is $62$, $250$, $1000$ (top) and $100$, $300$, $900$(bottom).
+  The weighted parameters are set as $\lambda_{1,2,3,4}=(1,1,1,1)/4$.
   % with$62, 250, 1000$ $100$,
   % $300$ and $900$ points for each class.
   }\label{adaptive-size-sampling}
@@ -129,9 +128,9 @@ noise sampling algorithm for multi-class sampling by throwing samples
 as Wasserstein barycenter of multiple density distributions. We
 employ a more general representation of optimal transport problem
 to break the partition necessary in other optimal sampling.
-On one hand, adaptive blue noise distribution property for every
-individual class is guaranteed, as well as their combined class. On
-the other hand, the efficiency of sampling is improved by applying
+Moreover, adaptive blue noise distribution property for every
+individual class is guaranteed, as well as their combined class. 
+Furthermore, the efficiency of sampling is improved by applying
 Wasserstein distance with entropic constraints. Our method can
 be applied to multi-class sampling on the point set surface. We also
 demonstrate applications in object distribution and color stippling.
