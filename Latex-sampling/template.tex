@@ -74,6 +74,7 @@
   \centering
 \begin{minipage}{1\textwidth}
   \includegraphics[width=0.135\textwidth]{figure/adaptive-size-123.png}
+  %\caption{abc}
   %\end{minipage}
   %  \begin{minipage}{0.25\textwidth}
   \includegraphics[width=0.135\textwidth]{figure/adaptive-size-12.png}
@@ -104,9 +105,9 @@
   %  \begin{minipage}{0.23\textwidth}
   \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere3.png}
   \end{minipage}
-  \caption{Multi-class blue noise sampling  with different sizes on a same constant density function.
-  Samples distribution with larger size remains blue noise pattern,
-  and samples distribution with smaller size might deviate from blue noise pattern.
+  \caption{Multi-class blue noise sampling  with different sizes on three same constant density functions.
+  Sample distribution with larger size remains blue noise pattern,
+  and sample distribution with smaller size might deviate from blue noise pattern.
   The number of samples for each class is $62$, $250$, $1000$ (top) and $100$, $300$, $900$(bottom).
   The weighted parameters are set as $\lambda_{1,2,3,4}=(1,1,1,1)/4$.
   % with$62, 250, 1000$ $100$,
@@ -121,15 +122,15 @@ Sampling is a core component for many applications such as imaging,
 rendering, geometry processing and visualization. Prior research
 has mainly focused on blue noise sampling with a single
 class of samples. Limited research has been done on multi-class
-sampling; especially, multi-class blue noise sampling is still a challenge problem
-when the density distribution of every class is nonuniform and vary from each
+sampling; especially, multi-class blue noise sampling is still a challenging problem
+when the density distribution of every class is nonuniform and different from each
 other. In this paper, we present a Wasserstein blue
 noise sampling algorithm for multi-class sampling by throwing samples
 as Wasserstein barycenter of multiple density distributions. We
 employ a more general representation of optimal transport problem
 to break the partition necessary in other optimal sampling.
 Moreover, adaptive blue noise distribution property for every
-individual class is guaranteed, as well as their combined class. 
+individual class is guaranteed, as well as their combined class.
 Furthermore, the efficiency of sampling is improved by applying
 Wasserstein distance with entropic constraints. Our method can
 be applied to multi-class sampling on the point set surface. We also

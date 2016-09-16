@@ -19,7 +19,7 @@ not terminate. Since then, many variations of dart throwing were proposed to
 solve the problem~\cite{Mitchell:1987:generating,dunbar:2006:spatial,white:2007:poisson,wei:2008:parallel,gamito:2009:accurate,ebeida:2011:efficient}.
 However, it is difficult to control the number of points generated with these method,
 and produced distribution is also with relatively high variance
-by today¡¯s standards.
+by current standards.
 
 Optimal sampling is another type of methods to generate higher quality sampling.
 A well-known approach in this class is Lloyd relaxation~\cite{lloyd:1982:least}.
@@ -36,34 +36,34 @@ Baler et al.~\shortcite{balzer:2009:capacity} proposed a variant of Lloyd's meth
 which enforces that each point obtains equal importance in the distribution.
 ~\cite{xu:2011:capacity} proposed Capacity-Constrained Delaunay Triangulation (CCDT) by replacing Voronoi cell of CCVT with Delaunay triangulation.
 Furthermore, CCDT is extended to Capacity-constrained Surface Triangulation(CCST)~\cite{xu:2012:blue} for surface sampling.
-De Goes et al.~\cite{de:2012:blue} thought of CCVT as an optimal transport problem in
+De Goes et al.~\cite{de:2012:blue} considered CCVT as an optimal transport problem in
 the space of power diagrams.
 In addition to Lloyd's method,
-the kernel density model is also applied for optimal sampling.
+the kernel density model is also applied to optimal sampling.
 In~\cite{fattal:2011:blue},
 Fattal used a radially-symmetric kernel function to produce an approximated density function.
 The difference between the approximation and the given target point density function assigns an energy value to the points configuration.
 Jiang et al.~\shortcite{jiang:2015:blue} used a kernel function to apply the smoothed particle hydrodynamics method for a variety of controllable blue noise sample patterns.
 Compared with \cite{de:2012:blue},
-our approach is generalized as a minimization of Wasserstein distance
+our approach is generalized as the minimization of Wasserstein distance
 by using the transport plan instead of the partition in \cite{de:2012:blue}.
 Thus, our approach is feasible for multi-class sampling.
 
 
 \subsection{Multi-class sampling}
 Wang and Parker~\shortcite{Wang:1999:BlueNoise} studied the power spectrum characteristics of combined blue noise patterns and proposed a multi-class blue noise sampling approach on digital filter techniques.
-However, the approach is constrained to uniform/regular/discrete sampling.
-Wei\shortcite{wei:2010:multi}, Schmaltz et al.\shortcite{schmaltz:2012:multi} and Jiang et al.\shortcite{jiang:2015:blue} proposed multi-class sampling
+However, the approach is constrained to uniform,regular and discrete sampling.
+Wei\shortcite{wei:2010:multi}, Schmaltz et al.\shortcite{schmaltz:2012:multi} and Jiang et al.\shortcite{jiang:2015:blue} proposed a multi-class sampling
 approach by enforcing blue noise property via an interaction matrix which
 encodes the spacing between class pairs.
 However, the matrix can exhibit discontinuous changes in the off-diagonal entries.
 Chen et al.~\shortcite{chen:2012:variational} proposed a multi-class sampling strategy based on capacity-constrained Voronoi tessellation.
 Two stage algorithm
- is applied for optimization of point distributions.
+ is applied to optimization of point distributions.
 The first stage is the optimal procedure for each individual class,
-and the second state is the optimal procedure for the combined class.
+and the second stage is the optimal procedure for the combined class.
 In our approach,
-the combined class is directly thought of as a single class.
+the combined class is directly treated as a single class.
 Normalized parameters are used to balance blue noise properties of different classes.
 Compared with~\cite{Wang:1999:BlueNoise},
 our approach preserves blue noise patterns in the density space other than in the spectrum space.
@@ -115,7 +115,7 @@ Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
 }\label{two-class-sampling}
 \end{figure*}
 \subsection{Wasserstein barycenter}
-For completeness, we briefly review Wasserstein barycenter next.
+For completeness, we briefly review Wasserstein barycenter in the next.
 By analogy with the barycenter of points $(x_1,...,x_n)$ in the Euclidean space, which is obtained as the minimizer of $x\leftarrow\sum_{i=1}^n||x-x_i||^2$,
 Wasserstein barycenter is defined as the barycenter of probability measure $\nu_1,...,\nu_n$ in the Wasserstein space
 by replacing the Euclidean distance with the Wasserstein distance.
@@ -140,7 +140,7 @@ where $\prod(\mu,\nu)$ is the subset in $P(\Omega\times\Omega)$, and meets mass 
 \prod(\mu,\nu)=\{\pi\in P(\Omega,\Omega)|\pi(\cdot,\Omega)=\mu,\pi(\Omega,\cdot)=\nu\}.
 \end{equation*}
 $\pi$ is a transportation plan,
-which describes the amount of mass $\pi(x,y)$ to be placed from $\mu$ at $x$ towards $y$ to create $\nu$ in aggregate.
+which describes the amount of mass $\pi(x,y)$ to be placed from $\mu$ at $x$ towards $y$ to create $\nu$ in aggregation.
 Thus,
 Wasserstein distance describes the minimum cost of transporting the source $\mu$ to the target $\nu$.
 
@@ -157,9 +157,10 @@ Wasserstein barycenter~\cite{agueh:2011:barycenters,cuturi:2013:fast,BTSSPP:2016
     s.t. \sum\limits_{i=1}^N\lambda_i=1, \lambda_i\geq0
 %\end{split}
 \end{equation}
-Wasserstein barycenter is an optimal probability measure $\mu$ to approximate probability measures ${\nu_1,...,\nu_N}$ with weight in Wasserstein space.
+Wasserstein barycenter is an optimal probability measure $\mu$ to approximate probability measures ${\nu_1,...,\nu_N}$ with weights in Wasserstein space.
 If $\mu$ is a discrete probability measure,
-Wasserstein barycenter of probability measures ${\nu_1,...,\nu_N}$ is sampling with capacity constrain in the space $\Omega$.
+$\mu$ represents sampling points which approximate probability measures ${\nu_1,...,\nu_N}$.
+%is sampling with capacity constrain in the space $\Omega$.
 Thus,
 Wasserstein barycenter is a general framework for sampling in the space $\Omega$.
 

@@ -1,5 +1,5 @@
 \section{Introduction}
-Sampling is a ubiquitous problem for many graphics application~\cite{Lagae:2008:CPDD},
+Sampling is a ubiquitous problem for many graphics applications~\cite{Lagae:2008:CPDD},
 such as rendering~\cite{Mitchell:1987:generating},
 imaging~\cite{Robert:1988:dithering},
 geometry processing~\cite{Oztireli:10:Spectral}
@@ -9,20 +9,21 @@ a large number of sampling patterns.
 The blue noise sampling distribution yields superior
 image quality over alternative distributions with the same
 number of samples since the retina cell distribution of
-a human being is a blue noise distribution~\cite{Yellott:1983:retina}.
+human is a blue noise distribution~\cite{Yellott:1983:retina}.
 Due to its importance,
 blue noise sampling has been researched extensively in last decades.
-Prior research mainly focus on a single class sampling.
-In fact, multi-class of samples is involved in a variety of sampling problems ,
+Prior research mainly focused on a single class sampling.
+In fact, multi-class of sampling is involved in a variety of sampling problems ,
 such as color stippling, visual abstraction of multi-class scatterplots,
 and so on.
 In these situations,
 blue noise distribution property needs to be preserved for every individual class of samples
 and their union simultaneously.
 Although optimal sampling~\cite{balzer:2009:capacity,chen:2012:variational,de:2012:blue} generates good distribution with blue noise property,
-it is difficult to directly extend them for multi-class blue noise sampling since
-the partition is necessary in these method.
-Failure case of multi-class sampling cannot be avoided~\cite{wei:2010:multi,chen:2012:variational}.
+it is difficult to directly extend it to multi-class blue noise sampling since
+the partition is necessary in these method,
+and failure case of multi-class sampling cannot be avoided~\cite{wei:2010:multi,chen:2012:variational},
+and failure case means that the uniformity of the individual classes and the combined class cannot be preserved simultaneously.
 
 
 %However, the single class blue noise sampling method cannot directly be
@@ -31,31 +32,31 @@ Failure case of multi-class sampling cannot be avoided~\cite{wei:2010:multi,chen
 %since the cut-off frequency of multi-class of samples
 %is larger than that of each single classes of samples~\cite{Wang:1999:BlueNoise}.
 
-Multi-class blue noise sampling is still a challenging problem,
+So far, multi-class blue noise sampling is still a challenging problem,
 although there are a few works on the issue recently.
 Based on the analysis of power spectrum characteristics of combined classes,
-digital filter techniques are applied to generate multi class samples in ~\cite{Wang:1999:BlueNoise}.
-In their methods, $2^n-1$ kinds of combined patters need to be created,
+digital filter techniques are applied to generate multi-class samples in ~\cite{Wang:1999:BlueNoise}.
+In their method, $2^n-1$ kinds of combined patterns need to be created,
 where $n$ is the number of classes.
 Thus, the problem tends to be more complicated with the increasing number of classes.
 Dart throwing is extended to generate multi-class samples in ~\cite{wei:2010:multi}.
-The main idea is to create a conflict matrix on accumulated two class sampling for explicit control of sample spacing.
-However, it is a difficult to set the off-diagonal elements of the conflict matrix
-to balance blue noise property of the individual class and that of the combined class
-when the density distribution of every class is nonuniform and different with others.
+The main idea is to create a conflict matrix on the accumulated two-class sampling for explicit control of sample spacing.
+However, it is  difficult to set off-diagonal elements of the conflict matrix
+to balance blue noise property of  individual classes and their combined classes
+when the density distribution of every class is nonuniform and different from others.
 In~\cite{chen:2012:variational},
 Chen et al. extended blue noise sampling with capacity-constrained
-Voronoi tessellation for multi-class sampling.
+Voronoi tessellation (CCVT) for multi-class sampling.
 However,
-The conflict between the Voronoi diagram of the combined class and the Voronoi diagram of each individual class
+The conflict between the Voronoi diagrams of the combined class and  each individual classes
 prohibits  optimizing the point distribution of
-the combined class as well as the individual classes simultaneously.
+the combined class and the individual classes simultaneously.
 
 
-In this paper, we present an Wasserstein blue noise sampling algorithm by
+In this paper, we present Wasserstein blue noise sampling algorithm by
 throwing samples as Wasserstein barycenter of multiple density distribution.
 Blue noise property of every individual class and combined classes
-is preserved by setting separately every individual density distribution and every combined density distribution as an independent density distribution to
+are preserved by setting separately every individual density distribution and every combined density distribution as an independent density distribution to
 compute the Wasserstein barycenter.
 Our algorithm avoids the failure case of multi-class sampling on traditional Lloyd relaxation~\cite{wei:2010:multi}
  and on Voronoi tessellation~\cite{chen:2012:variational}  since
@@ -63,13 +64,13 @@ Our algorithm avoids the failure case of multi-class sampling on traditional Llo
 On the other hand,
 the efficiency of sampling is improved by applying Wasserstein distance with entropic constraints.
 At the same time,
-our method can be directly applied for multi-class sampling on point set surface.
+our method can be directly applied to multi-class sampling on point set surface.
 
 \subsection{Motivation and Contributions}
 Although a series of algorithms on CCVT lead to high-quality blue noise samples,
 it is very difficult to directly extend these algorithms to multi-class blue noise sampling.
-The main reason is that the equi-capacity partitioning is key  to
-ensure that each point convey equal visual importance in these algorithms.
+The main reason is that the equi-capacity partitioning is a key  to
+ensure that each point conveyes equal visual importance in these algorithms.
 It is questionable whether an adaptable partitioning for multi-class sampling can be made.
 Thus, we must study a more general algorithm which is feasible for multi-class sampling,
 adaptive sampling, and surface sampling.
@@ -79,14 +80,14 @@ throwing samples as Wasserstein barycenter of multiple density distribution.
 It computes point distributions to minimize Wasserstein distance.
 %Blue noise property of every individual class and combined classes
 %is preserved simultaneously.
-Our experiments show that our result can generate high-quality blue noise spectrum for every individual class and the combined class.
+Our experiments show that our result can generate high-quality blue noise spectrum for every individual class and the combined classes.
 Our contributions are as follows:
 \begin{itemize}
 \item We formulate multi-class sampling as a constrained Wasserstein barycenter of multiple density functions.
 Constrained transport plans  are used to represent the capacity constrains exactly as the equi-capacity partitioning.
 \item An iterative optimization procedure,
 which combines stochastic gradient descent algorithm and Sinkhorn-Knopp¡¯s matrix scaling algorithm,
-not only break local spatial regularity, but also provide a fast and reliable numerical treatment.
+not only breaks local spatial regularity, but also provides a fast and reliable numerical treatment.
 \item The proposed approach can be easily extended to support adaptive sampling and general domain sampling,
 such as sampling on point set surface.
 \end{itemize}

@@ -33,25 +33,28 @@
 
 \textbf{Surface reconstruction of noisy point clouds.}
 Surface reconstruction of noisy point clouds is a challenging problem.
-If we take original point clouds with noise as a discrete probability measure of a two dimensional surface,
-and take samples on the surface as another discrete probability measure,
-samples on the surface is the Wasserstein barycenter of original point clouds.
-Then,
-we can apply a single class blue noise sampling to generate samples on the surface.
-Fig.~\ref{surface-reconstruction} shows an example for surface reconstruction of point clouds with heavy noisy.
+In this paper,
+we take original point clouds with noise as a discrete probability measure of a two dimensional surface,
+and take samples on the surface as another discrete probability measure.
+Samples on the surface is the Wasserstein barycenter of original point clouds.
+We can apply a single class blue noise sampling to generate samples on the surface.
+Then triangulations are implemented by the open source code provided by Rahmani et al.~\cite{rahmani:2014:hopc}.
+Fig.~\ref{surface-reconstruction} shows an example for surface reconstruction of point clouds with heavy noise.
+Since the entropic regular term in the Wasserstein barycenter plays an role for smoothing of the transport plan with hard constrain (Eq.~\ref{eq:transform-plan}),
+our approach can generate an smooth surface.
 
 \textbf{Object distribution.}
 Object placement without regularity artifacts plays an important role in texture synthesis.
 Blue noise sampling provides a feasible approach for such distribution.
 However,
-it is a considerable problem how to place multi-class objects with different size on the surface.
-Our approach can be directly applied for this purpose.
-Figure~\ref{adaptive-size-sampling} shows an example for placing three class objects with different size on a square.
+how to place multi-class objects with different size on the surface is a considerable problem .
+Our approach can be directly applied on this problem.
+Figure~\ref{adaptive-size-sampling} shows an example for placing three class objects with different sizes on a square.
 Figure~\ref{adaptive-size-sampling} and Figure~\ref{gs-sampling} show two examples for placing three class objects with different sizes on two dimensional surfaces.
 
 \textbf{Color stippling.}
 Color stippling is another very important application via blue noise sampling.
-We can apply our method for multi-class color stippling on CMY-RGB-K color model using the input image as a weighted density filed,
+We can apply our method to multi-class color stippling on CMY-RGB-K color model using the input image as a weighted density filed,
 The weighted value represents the importance of each color channel and is used to set the number of each color dots.
 More dots are placed in the
 area where the corresponding color is dominant.
