@@ -14,7 +14,7 @@ a probability measure is defined as:
 \end{equation}
 Sampling the density function $\varrho(x)$ consists of picking a few representative points $x_i$
 that capture $\varrho$ well.
-These representative points $x_i$ represents a discrete probability measure,
+These representative points $x_i$ represents a discrete probability measure $\mu$,
 \begin{equation*}
 \begin{split}
   \mu=\sum\limits_{i=1}^n\rho_i\delta_{x_i} \quad
@@ -67,7 +67,7 @@ in multi-class sampling. \\
 %and $M$-class combined probability distribution.
 Let $\{\varrho_1,\cdots,\varrho_N\}$ be $N$ individual probability density functions
 to be sampled on the space $\Omega$.
-Let $\{\varrho_{{i}_1,...,i_k}\}(k\leq N,i_j\in\{1,2,..,N\})$
+Let $\{\varrho_{{i}_1,...,i_k}\}(k\leq N, i\in\{N+1,N+2...,2^N-1\},i_j\in\{1,2,..,N\})$
 be combined probability density functions of the combined classes.
 $\varrho_{{i}_1,...,i_k}$ is the combined density function of the class combined by  the $i_1th,...,i_kth$ classes,
 %A combined probability density function $\rho_{i_1,i_2,...,i_k}$,
@@ -88,7 +88,7 @@ there is a corresponding probability measure $\nu_i(1\leq i\leq 2^N-1)$ for ever
 The probability measure $\nu_i(1\leq i\leq N)$ corresponds to $\varrho_i$,
 and the probability measure $\nu_i(N<i\leq 2^N-1)$ corresponds to $\varrho_{i_1,...,i_k}$.
 For sampling points $X_i$ or $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$,
-there is a corresponding discrete probability measure $\mu_i(1\leq i\leq 2^m-1)$.
+there is a corresponding discrete probability measure $\mu_i(1\leq i\leq 2^N-1)$.
 For multi-class blue noise sampling,
 every class sampling points $X_i$ captures the probability function $\varrho_i$ well,
 and combined sampling points $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$ captures the probability density function $\varrho_{i_1,i_2,...,i_k}$ well too.
@@ -97,7 +97,7 @@ every discrete probability measure $\mu_i$ should approximate corresponding prob
 
 Compared with a single class sampling,
 we cannot compute an optimal $\mu_i$ for every $\nu_i$ in terms of Eq.~\ref{single-class-problem} independently,
-since sampling points $X_i$ are influenced by individual probability measures $\nu_i$ and combined probability measuress $\nu_{i_1,...,i_k}(i_j=i)$ simultaneously.
+since sampling points $X_i$ are influenced by individual probability measures $\nu_i$ and combined probability measuress $\nu_{i'}(i'_j=i)$ simultaneously.
 We describe multi-class sampling as a combined Wasserstein barycenter,
 \begin{equation}\label{eq:combined-wasserstein-barycenter}
  \bar\mu=arg\min\limits_{\bar\mu}\sum\limits_{i=1}^K\lambda_iW_p^p(\mu_i,\nu_i) \quad
@@ -105,7 +105,8 @@ We describe multi-class sampling as a combined Wasserstein barycenter,
 \end{equation}
 where $\bar\mu=\{\mu_1,...,\mu_N,\mu_{N+1},...\mu_{K}\}$,
 $\mu_i(1\leq i\leq N)$  is a discrete probability measure corresponding to $X_i$,
-$\mu_i(N < i\leq K)$ is a discrete probability measure corresponding to combined sampling points.
+$\mu_i(N < i\leq K)$ is a discrete probability measure corresponding to combined sampling points,
+$K-N$ is the number of combined classes.
 
 In extended version of~\cite{wei:2010:multi},
 Wei pointed out that multi-class sampling on traditional relaxation method~\cite{balzer:2009:capacity}
@@ -122,8 +123,8 @@ and the minimum unit of transported mass is constrained by the resolution of the
 The two limits make relaxing conflicts of desired centroid locations more difficult.
 
 To preserve sufficient sample uniformity for multi-class sampling,
-the constrain on the transport plan (Eq.~\ref{eq:transform-plan})
-is broken via a more general transport plan $\pi$ in combined Wasserstein barycenter Eq.~\ref{eq:combined-wasserstein-barycenter}.
+the constraint on the transport plan (Eq.~\ref{eq:transform-plan})
+is broken via a more general transport plan $\pi$ in combined Wasserstein barycenter (Eq.~\ref{eq:combined-wasserstein-barycenter}).
 On one hand,
 $\pi$ is a separable transport plan in Eq.~\ref{eq:combined-wasserstein-barycenter},
 which means the mass located in a small domain can be transported to different samples other than only one sampling point.
@@ -168,7 +169,7 @@ our approach is an efficient relaxation method for multi-class blue noise sampli
 \quad 02: Input: domain $\Omega$, densities $\varrho_1,...,\varrho_N$, coordinates of discrete points $\mathbf{Y}$,
   number of sampling points $n_1,...,n_N$,
   number of combined classes $K-N$ and combined classes $\{i_1,...,i_k\}$\\
-\quad 03: Output: coordinates $\mathbf{X}=\{x_{1,1} \cdots  x_{1,N_1} \cdots x_{n,1} \cdots x_{n,N_n}\}$  of sampled points\\
+\quad 03: Output: coordinates $\mathbf{X}=\{x_1^1 \cdots  x_1^{N_1} \cdots x_n^1 \cdots x_n^{N_n}\}$  of sampled points\\
 \quad 04: Initialize $\mathbf{X}$ with random points inside $\Omega$ conforming to $\rho_1,...,\rho_n$ \\
 \quad 05: Initialize parameters $\epsilon$ for the entropic regularization\\
 \quad 06: Initialize weight parameters $\lambda_i(1\leq i \leq K)$\\
@@ -177,31 +178,31 @@ our approach is an efficient relaxation method for multi-class blue noise sampli
 \quad 08: Compute distance matrix $\mathbf D$\\
 \quad 09: Compute the energy $E_0=\sum_{i=1}^K\lambda_i<\mathbf D,\mathbf{\Pi}_i>$\\
 \quad 10: \textbf{Repeat}\\
-11:\quad Compute the distance matrix $\mathbf{D}$ \\
-12:\quad // Iterative bregman projections for $\mathbf{\Pi}_k$\\
-13:\quad For i=1:K \\
-14:\quad \quad  Iterative-bregman-projection() (lines 24-32) \\
-15:\quad // Newton iterative method for $\mathbf{X}$ \\
-16:\quad Generate K random numbers $r_1,...,r_K\in[0,1]$\\
-17:\quad Normalize $r_1,...,r_K$,$\sum_{i=1}^Kr_i=1$\\
-18:\quad Update $\mathbf X$, $\mathbf X=(1-\theta)\mathbf X+\theta\sum_{i=1}^K\lambda_ir_i\mathbf{X}\mathbf{\Pi}ik^Tdiag(\frac{1}{g_i})$\\
-19:\quad Update $D$\\
-20:\quad $E_1=\sum_{i=1}^K\lambda_i<\mathbf{D},\mathbf{\Pi}_k>$ \\
-21:\quad $dE=E_1-E_0$, $E_0=E_1$\\
+11:\quad // Iterative bregman projections for $\mathbf{\Pi}_k$\\
+12:\quad For i=1:K \\
+13:\quad \quad  Iterative-bregman-projection() (lines 24-32) \\
+14:\quad // Newton iterative method for $\mathbf{X}$ \\
+15:\quad Generate K random numbers $r_1,...,r_K\in[0,1]$\\
+16:\quad Normalize $r_1,...,r_K$,$\sum_{i=1}^Kr_i=1$\\
+17:\quad Update $\mathbf X$, $\mathbf X=(1-\theta)\mathbf X+\theta\sum_{i=1}^K\lambda_ir_i\mathbf{X}\mathbf{\Pi}i^Tdiag({\rho_i^{-1}})$\\
+18:\quad Update $D$\\
+19:\quad $E_1=\sum_{i=1}^K\lambda_i<\mathbf{D},\mathbf{\Pi}_i>$ \\
+20:\quad $dE=E_1-E_0$, $E_0=E_1$\\
+21:\quad Compute the distance matrix $\mathbf{D}$ \\
 22:\quad Update $\epsilon$ \\
 23: \textbf{Until} $dE$ is convergent \\
 
 24: Subroutine Iterative bregman projections()\\
 25: Input: the distance matrix $D$, the parameter $\epsilon$,
-    the density function $\mathbf{p}=\mathbf{g}_k$,
+    the density function $\mathbf{p}=\rho_k$,
     $\mathbf{q}=\mathbf{\varrho_{k}}$\\
 26: Initiate $i=0$, $\mathbf{v}^i=\mathbf{1}$(all-1 vector)\\
 27: Initiate $\mathbf\xi=e^{-\mathbf{D}/\epsilon}$\\
 28: \textbf{Repeat}\\
-29:\quad $\mathbf{u}^i=\frac{\mathbf{p}}{\mathbf{\xi}\mathbf{v}^i}$\\
-30:\quad $i=i+1$,$\mathbf{v}^i=\frac{\mathbf{q}}{\mathbf{\xi}^\mathbf{T}\mathbf{u}^i}$\\
+29:\quad $\mathbf{u}^i=\frac{\mathbf{p}}{\mathbf{\xi}_k\mathbf{v}^i}$\\
+30:\quad $i=i+1$,$\mathbf{v}^i=\frac{\mathbf{q}}{\mathbf{\xi}_k^\mathbf{T}\mathbf{u}^i}$\\
 31:\textbf{Until} $\mathbf{\mu}^i$ is convergent\\
-32:$\mathbf{\Pi}_k=diag(\mathbf{u}^i)\mathbf{\xi} diag({\mathbf{v}^i})$\\
+32:$\mathbf{\Pi}_k=diag(\mathbf{u}^i)\mathbf{\xi}_k diag({\mathbf{v}^i})$\\
    \rule{0.47\textwidth}{0.5pt}
   \caption{Pseudocode of multi-class blue noise algorithm}\label{fig:pseudocode}
 \end{figure}
@@ -244,14 +245,14 @@ to compute integrations required in Eq. ~\ref{eq:combined-wasserstein-barycenter
 \begin{equation}\label{eq:discrete-prbability-measure}
 \nu_i=\sum\limits_{j=1}^{m_i}\varrho_i^j\delta_{y_i^j} \quad s.t. \sum\limits_{j=1}^{m_i}\varrho_i^j=1
 \end{equation}
-where $\varrho_i^j=\varrho_k(y_i^j)V_{y_i^j}$
-and $V_{y_i^j}$ is the area with density $\varrho_k(y_i^j)$ at the point $y_i^j$ when the density function
+where $\varrho_i^j=\varrho_i(y_i^j)V_{y_i^j}$
+and $V_{y_i^j}$ is the area with density $\varrho_i(y_i^j)$ at the point $y_i^j$ when the density function
 $\varrho_i$ is approximated with a positive piecewise constant function,
-$\varrho_i$ is the probability density function of the probability measure $nu_i$,
+$\varrho_i$ is the probability density function of the probability measure $\nu_i$,
 and $m_i$ is the number of discrete points of the $i$th-class probability measure $\nu_i$.
 In this paper,
 we apply a regular discretization with same area for all sampling points $y_i^j$.
-We also apply the same sampling points for all probability measures $\nu_i$, 
+We also apply the same sampling points for all probability measures $\nu_i$,
 which is
 \begin{equation*}
 m_i=m_k=m, y_i^j=y_k^j=y^j \quad{i\neq j}.
@@ -270,10 +271,10 @@ where
 % $\mathbf{X}=\{X_1,...,X_N\}$ is the set of all samples,
  $\mathbf{D}_i,\mathbf{\Pi}_i\in R_+^{n\times m}$,
  $\mathbf{D}_i$ is the distance matrix and $D_i^{(j,k)}=d(x^j,y^k)^p$,
- $\mathbf{\Pi}_i$ is the $k$th-class transport cost matrix and $\Pi_i(x^j,y^k)$ represents the mount of mass transported from $x^j$ to $y^k$ for the $i$-th class,
+ $\mathbf{\Pi}_i$ is the $i$th-class transport cost matrix and $\Pi_i(x^j,y^k)$ represents the mount of mass transported from $x^j$ to $y^k$ for the $i$-th class,
  and $<\cdot,\cdot>$ is Frobenius product of two matrixes.
 
- We proceed with sample generation by computing a optimal solution of the variational problem (Eq.\ref{eq:discrete-multi-problem}).
+ We proceed with sample generation by computing an optimal solution of the variational problem (Eq.\ref{eq:discrete-multi-problem}).
  We apply a loop iteration algorithm to extremize the variational problem by repeatedly performing a minimization step over positions $\mathbf{X}$ followed by a projection step over transport plans $\mathbf{\Pi}_k$.
 
  For a fixed set of points $\mathbf X$,
@@ -281,31 +282,31 @@ where
  For every transport plan matrix $\mathbf{\Pi}_k$,
  Eq.\ref{eq:regulate-wasserstein-distance} can be discretized as
  \begin{equation}\label{eq:discrete-regulate-wasserstein-barycenter}
-   W_p^p(\mathbf{D}_k,\mathbf{\Pi}_k)=arg\min\limits_{\mathbf{\Pi}_k}<\mathbf{D}_k,\mathbf{\Pi}_k>-\epsilon H(\mathbf{\Pi}_k)
+   W_p^p(\mathbf{D}_i,\mathbf{\Pi}_i)=arg\min\limits_{\mathbf{\Pi}_i}<\mathbf{D}_i,\mathbf{\Pi}_i>-\epsilon H(\mathbf{\Pi}_i)
  \end{equation}
-The optimal transport plan $\mathbf{\Pi}_k$ can be obtained by iterative Bregman projection~\cite{cuturi:2013:sinkhorn,benamou:2015:iterative}, and
+The optimal transport plan $\mathbf{\Pi}_i$ can be obtained by iterative Bregman projection~\cite{cuturi:2013:sinkhorn,benamou:2015:iterative}, and
 \begin{equation}\label{eq:transport-plan}
-  \mathbf{\Pi}_k=diag(\mathbf{u})\mathbf{\xi}diag(\mathbf{v})
+  \mathbf{\Pi}_i=diag(\mathbf{u})\mathbf{\xi}_idiag(\mathbf{v})
 \end{equation}
-where $\mathbf{\xi}=e^{-\frac{\mathbf{D}_k}{\epsilon}}$,
-$\mathbf{u}\in \mathbb{R}_+^{n_k}$ and $\mathbf{v}\in\mathbb{R}_+^{m_k}$.
+where $\mathbf{\xi}_i=e^{-\frac{\mathbf{D}_i}{\epsilon}}$,
+$\mathbf{u}\in \mathbb{R}_+^{n}$ and $\mathbf{v}\in\mathbb{R}_+^{m}$.
 More details can be found in~\cite{cuturi:2013:sinkhorn,cuturi:2013:fast,benamou:2015:iterative}
 
 
 
-Suppose $\Pi_k(k=1,...,K)$ is fixed,
+Suppose $\Pi_i(i=1,...,K)$ is fixed,
 variational formula Eq.~\ref{eq:discrete-multi-problem}
 is the sum of a convex quadratic function of $\mathbf{X}$ when $p=2$.
 If we only update $\mathbf{X}_i$ at every iteration,
 $\mathbf{X}$ can be obtained by Newton iterative method,
 \begin{equation}\label{eq:position-iterative}
-  \mathbf{X}\leftarrow(1-\theta)\mathbf{X}+\theta\mathbf{Y}\mathbf{\Pi}_kdiag({\rho_k}^{-1}) \quad (0\leq\theta\leq 1)
+  \mathbf{X}\leftarrow(1-\theta)\mathbf{X}+\theta\mathbf{Y}\mathbf{\Pi}_i^T diag({\rho_i}^{-1}) \quad (0\leq\theta\leq 1)
 \end{equation}
 To improve randomness of samples,
 we apply a random Newton iterative method to update all sampling points $\mathbf{X}$ simultaneously,
 \begin{equation}
 \begin{split}
-\mathbf{X}\leftarrow(1-\theta)\bar X+\theta\sum_{i=1}^K\lambda_ir_iX\Pi_k^Tdiag(\frac{1}{n_i})\\
+\mathbf{X}\leftarrow(1-\theta)X+\theta\sum_{i=1}^K\lambda_ir_iY\Pi_i^Tdiag({\rho_i}^{-1})\\
  s.t. \sum\limits_{i=1}^{K}r_i=1, r_i\geq 0
  \end{split}
 \end{equation}
