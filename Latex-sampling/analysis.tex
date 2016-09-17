@@ -20,11 +20,11 @@ and $\delta_{avg}$ roughly measures how uniform of the points are distributed~\c
 $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement~\cite{kansal:2000:nonequilibrium}
 \end{table}
 
-
-
 \begin{table}
 \caption{\label{time-table-singleclass}
 Comparison of sampling times.
+Original points are generated from a constant density function. 
+The number of original points is $128\times 128$.
 }
 
  \begin{tabular}{c|c|c|c}
@@ -201,6 +201,14 @@ only a combined class of the total set is enough to generate a good point distri
 Thus, it is significantly better than CapCVT~\cite{chen:2012:variational} which is $O(nMN+nN^2)$.
 While our algorithm performs well for small datasets,
 our method is limited by its memory requirements $O(2MN)$ for large datasets, such as the experiment in Fig.~\ref{Color stippling}.
+
+\textbf{Performance.}
+% 用的什么设备
+% 针对单类做了什么，结论是什么
+% 针对多类做了什么，结论是什么
+All of our performance are locked on an .
+For single blue noise sampling, 
+we compare 
 
 %We measure the timing via a uniform sampling.
 %The number of all samples is 2048.
