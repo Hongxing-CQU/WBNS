@@ -20,9 +20,11 @@ and $\delta_{avg}$ roughly measures how uniform of the points are distributed~\c
 $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement~\cite{kansal:2000:nonequilibrium}
 \end{table}
 
+
+
 \begin{table}
-\caption{\label{time-table-singleclass}
-Comparison of sampling times.
+\caption{\label{time-table-multiclass}
+Comparison of sampling times of multi-class blue noise sampling.
 Original points are generated from a constant density function.
 The resolution of original points is $128\times 128$.
 }
@@ -50,6 +52,30 @@ The resolution of original points is $128\times 128$.
   \end{tabular}\\
 \end{table}
 
+
+\begin{table}
+\caption{\label{time-table-singleclass}
+Comparison of sampling times of single blue noise sampling.
+The number of sampling points of every individual class is 512.
+The sampling rate is $1/16$ for every individual class sampling.
+}
+
+ \begin{tabular}{c|c|c|c}
+ {Number of} &
+ %\multirow{2}*{Original Points} &
+ \multicolumn{3}{c}{ Times(s)} \\ \cline{2-4}
+  Class & [Wei 2010] & Our CPU &  Our GPU \\ \hline
+
+
+ % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
+
+   2 & 34.769&   242.908 & 14.670  \\ \hline
+   3 & 151.727& 665.797 & 37.553   \\ \hline
+   7 & 414.031&  13190.018 & 212.133 \\ \hline
+
+
+  \end{tabular}\\
+\end{table}
 
 \begin{figure*}[htb]
   \centering
@@ -215,7 +241,11 @@ For single blue noise sampling,
 we compare our method with traditional CCVT~\cite{balzer:2009:capacity}
 and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}.
 Since the most time is spend for integral computation in power diagrams method~\cite{de:2012:blue} and distance matrix computation in our approach,
-CCVT~\cite{balzer:2009:capacity} When sampling rate is lower than $1/64$, 
+CCVT~\cite{balzer:2009:capacity} performs more better in running time than these two method when sampling rate is lower than $1/64$.
+With the increasing of sampling points or with the decreasing of sampling rate,
+our approach outperforms CCVT~\cite{balzer:2009:capacity} and power diagrams~\cite{de:2012:blue}.
+
+ 
 
 
 the time of our approach with other approach.
