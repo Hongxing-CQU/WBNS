@@ -27,22 +27,25 @@ Original points are generated from a constant density function.
 The resolution of original points is $128\times 128$.
 }
 
- \begin{tabular}{c|c|c|c}
- {Sampling} &
+ \begin{tabular}{c|c|c|c|c}
+ {Sampling} & {Sampling} &
  %\multirow{2}*{Original Points} &
- \multicolumn{3}{c}{ Times(s)} \\ \cline{2-4}
-  Points & [Balzer et al. 2009] & [De Goes et al. 2012] & Ours \\  \hline
+ \multicolumn{3}{c}{ Times(s)} \\ \cline{3-5}
+ \multirow{2}*{Points} & \multirow{2}*{Rate}
+   & [Balzer et & [De Goes &  \multirow{2}* {Ours} \\
+   &  & al. 2009] &  et al. 2012] & \\ \hline
+
 
 
  % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
 
-   32 &   0.203 & $0.325$ & 0.404 \\ \hline
-   64 & 0.187 & 0.407 & 0.346  \\ \hline
-   128 &  0.202 & 0.436 & 0.433  \\ \hline
-   256 &  0.375 & 0.568 & 0.474  \\ \hline
-   512 & 1.076 & 0.739 & 0.669  \\ \hline
-   1024 & 2.184 & 1.137 & 1.048  \\ \hline
-   2048 &  8.408 & 2.269 & 2.025  \\ \hline
+   32 & 1/512&   0.203 & $0.325$ & 0.404 \\ \hline
+   64 & 1/256& 0.187 & 0.407 & 0.346  \\ \hline
+   128 & 1/128&  0.202 & 0.436 & 0.433  \\ \hline
+   256 & 1/64& 0.375 & 0.568 & 0.474  \\ \hline
+   512 & 1/32& 1.076 & 0.739 & 0.669  \\ \hline
+   1024 & 1/16& 2.184 & 1.137 & 1.048  \\ \hline
+   2048 & 1/8&  8.408 & 2.269 & 2.025  \\ \hline
 
   \end{tabular}\\
 \end{table}
@@ -209,7 +212,13 @@ our method is limited by its memory requirements $O(2MN)$ for large datasets, su
 All of our performance are locked on a workstation with Intel Xeon 3.50GHz
 dual-core CPUs and 32GB memory, and NVIDIA Quadro K5000 GPU with 2GB memory.
 For single blue noise sampling,
-we compare the time of our approach with other approach.
+we compare our method with traditional CCVT~\cite{balzer:2009:capacity}
+and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}.
+Since the most time is spend for integral computation in power diagrams method~\cite{de:2012:blue} and distance matrix computation in our approach,
+CCVT~\cite{balzer:2009:capacity} When sampling rate is lower than $1/64$, 
+
+
+the time of our approach with other approach.
 
 %We measure the timing via a uniform sampling.
 %The number of all samples is 2048.
