@@ -23,6 +23,7 @@ $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement
 
 
 \begin{table}
+\center
 \caption{\label{time-table-singleclass}
 Comparison of sampling times of multi-class blue noise sampling.
 Original points are generated from a constant density function.
@@ -54,24 +55,25 @@ The resolution of original points is $128\times 128$.
 
 
 \begin{table}
+\center
 \caption{\label{time-table-multiclass}
 Comparison of sampling times of single blue noise sampling.
 The number of sampling points of every individual class is 512.
 The sampling rate is $1/16$ for every individual class sampling.
 }
 
- \begin{tabular}{c|c|c|c}
+ \begin{tabular}{c|c|c}
  {Number of} &
  %\multirow{2}*{Original Points} &
- \multicolumn{3}{c}{ Times(s)} \\ \cline{2-4}
-  Class & [Wei 2010] & Our CPU &  Our GPU \\ \hline
+ \multicolumn{2}{c}{ Times(s)} \\ \cline{2-3}
+  Class & [Wei 2010] & Ours \\ \hline
 
 
  % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
 
-   2 & 34.769&   242.908 & 14.670  \\ \hline
-   3 & 151.727& 665.797 & 37.553   \\ \hline
-   7 & 414.031&  13190.018 & 212.133 \\ \hline
+   2 & 34.769 & 14.670  \\ \hline
+   3 & 151.727 & 37.553   \\ \hline
+   7 & 414.031 & 212.133 \\ \hline
 
 
   \end{tabular}\\
@@ -88,7 +90,7 @@ The sampling rate is $1/16$ for every individual class sampling.
   \includegraphics[width=1.0\textwidth]{figure/7-class-our-1024.png}
 
   \caption{Seven-class blue noise sampling on our algorithm.
-  $\lambda_{1,2,3,4,5,6,7,8}=1/14,1/14,1/14,1/14,1/14,1/14,1/14,7/14$.
+  $\lambda_{1,2,3,4,5,6,7,8}=(1,1,1,1,1,1,1,7)/14$.
   $\lambda_1,\cdots,\lambda_7$ is weighted parameters for each individual class,
   $\lambda_8$ is the weighted parameter for the total set.
   The number of samples of each individual class is $1024$.}\label{seven-class-sampling}
@@ -114,7 +116,7 @@ The sampling rate is $1/16$ for every individual class sampling.
   \centering
   \includegraphics[width=0.45\textwidth]{figure/bunny-sampling.png}
   \caption{Two-class blue noise sampling on a point set surface.
-  $\lambda_1,2,3=1/4,1/4,2/4$, and the number of samples belonging to each class is $2000$.  }\label{bunny-sampling}
+  $\lambda_{1,2,3}=(1,1,2)/4$, and the number of samples belonging to each class is $2000$.  }\label{bunny-sampling}
 \end{figure}
 We ran our algorithm on a variety of inputs:
 from constant density to stripe and point set surface.
@@ -248,14 +250,17 @@ With the increasing of sampling points,
 our approach is more and more faster than CCVT~\cite{balzer:2009:capacity},
 and is two times faster than CCVT~\cite{balzer:2009:capacity} at least.
 With the increasing of sampling points,
-our approach is faster than power diagrams method~\cite{de:2012:blue} by over $10\%$. 
+our approach is faster than power diagrams method~\cite{de:2012:blue} by over $10\%$.
 For mutli-class blue noise sampling,
 we compare our method with Wei's method~\cite{wei:2010:multi} on running time in Table~\ref{time-table-multiclass}.
+Our approach is two times faster than Wei's method~\cite{wei:2010:multi} at least.
+In our algorithm,
+we use a global distance matrix.
+In every iteration,
+Updating the matrix spends most of running time.
+However, the matrix is a sparse matrix.
+Thus, we can furthermore improve the performance of our approach by making use of a sparse distance matrix.
 
-
-
-
-the time of our approach with other approach.
 
 %We measure the timing via a uniform sampling.
 %The number of all samples is 2048.
