@@ -23,7 +23,7 @@ $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement
 
 
 \begin{table}
-\caption{\label{time-table-multiclass}
+\caption{\label{time-table-singleclass}
 Comparison of sampling times of multi-class blue noise sampling.
 Original points are generated from a constant density function.
 The resolution of original points is $128\times 128$.
@@ -54,7 +54,7 @@ The resolution of original points is $128\times 128$.
 
 
 \begin{table}
-\caption{\label{time-table-singleclass}
+\caption{\label{time-table-multiclass}
 Comparison of sampling times of single blue noise sampling.
 The number of sampling points of every individual class is 512.
 The sampling rate is $1/16$ for every individual class sampling.
@@ -239,13 +239,20 @@ All of our performance are locked on a workstation with Intel Xeon 3.50GHz
 dual-core CPUs and 32GB memory, and NVIDIA Quadro K5000 GPU with 2GB memory.
 For single blue noise sampling,
 we compare our method with traditional CCVT~\cite{balzer:2009:capacity}
-and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}.
+and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}
 Since the most time is spend for integral computation in power diagrams method~\cite{de:2012:blue} and distance matrix computation in our approach,
 CCVT~\cite{balzer:2009:capacity} performs more better in running time than these two method when sampling rate is lower than $1/64$.
-With the increasing of sampling points or with the decreasing of sampling rate,
+With the increasing of sampling points or the decreasing of sampling rate,
 our approach outperforms CCVT~\cite{balzer:2009:capacity} and power diagrams~\cite{de:2012:blue}.
+With the increasing of sampling points,
+our approach is more and more faster than CCVT~\cite{balzer:2009:capacity},
+and is two times faster than CCVT~\cite{balzer:2009:capacity} at least.
+With the increasing of sampling points,
+our approach is faster than power diagrams method~\cite{de:2012:blue} by over $10\%$. 
+For mutli-class blue noise sampling,
+we compare our method with Wei's method~\cite{wei:2010:multi} on running time in Table~\ref{time-table-multiclass}.
 
- 
+
 
 
 the time of our approach with other approach.
