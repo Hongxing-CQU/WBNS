@@ -97,6 +97,12 @@ The sampling rate is $1/16$ for every individual class sampling.
 \end{figure*}
 
 \begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figure/conflict-ratio.png}
+    \caption{}
+\end{figure}
+
+\begin{figure}[htb]
   \centering
  \subfigure[Density function]{
   \label{fig:eight:a}
@@ -164,6 +170,10 @@ In seven-class sampling (Fig.~\ref{seven-class-sampling}),
 blue noise profile  is still kept for samples of each individual class and total class.
 It shows that our method is feasible for more numbers of class sampling.
 
+% ×öÒ»¸ö
+To evaluate efficiency of relaxing conflicts of desired centroid locations,
+we compare our approach with Wei's method~\cite{wei:2010:multi} on the
+difference between centroid locations of voronoi diagrams for single class samples and multi-class samples.
 
 \textbf{Adaptive multi-class sampling on ramp.}
 To evaluate multi-class blue noise sampling on non-uniform density function,
@@ -214,6 +224,7 @@ In our experiments,
 we found that there is on overlap between any pair samples when $0\leq\lambda\leq 0.5$.
 In Fig.~\ref{adaptive sampling},
 our method is applied for three-class blue noise sampling with different size on a square and a two dimensional manifold.
+
 
 
 \textbf{Complexity.}

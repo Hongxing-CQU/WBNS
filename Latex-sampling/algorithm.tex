@@ -306,7 +306,7 @@ To improve randomness of samples,
 we apply a random Newton iterative method to update all sampling points $\mathbf{X}$ simultaneously,
 \begin{equation}
 \begin{split}
-\mathbf{X}\leftarrow(1-\theta)X+\theta\sum_{i=1}^K\lambda_ir_iY\Pi_i^Tdiag({\rho_i}^{-1})\\
+\mathbf{X}\leftarrow(1-\theta)X+\theta\sum_{i=1}^K\lambda_ir_i\mathbf{Y}\Pi_i^Tdiag({\rho_i}^{-1})\\
  s.t. \sum\limits_{i=1}^{K}r_i=1, r_i\geq 0
  \end{split}
 \end{equation}
@@ -335,14 +335,3 @@ shows the pseudocode of this schedule.
   The number of samples of each individual class is $1024$.}
   \label{three-class-sampling}
 \end{figure*}
-
-
-
-
-
-
-
-
-
-
-
