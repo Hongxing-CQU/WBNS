@@ -99,7 +99,9 @@ The sampling rate is $1/16$ for every individual class sampling.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.4\textwidth]{figure/conflict-ratio.png}
-    \caption{}
+    \caption{The evaluation for conflicts of desired voronoi centroid locations of individual classes and combined class.
+    }
+    \label{conflict-evaluation}
 \end{figure}
 
 \begin{figure}[htb]
@@ -171,9 +173,18 @@ blue noise profile  is still kept for samples of each individual class and total
 It shows that our method is feasible for more numbers of class sampling.
 
 % ×öÒ»¸ö
-To evaluate efficiency of relaxing conflicts of desired centroid locations,
+To evaluate efficiency of relaxing conflicts of desired centroid locations in our approach,
 we compare our approach with Wei's method~\cite{wei:2010:multi} on the
-difference between centroid locations of voronoi diagrams for single class samples and multi-class samples.
+difference between centroid locations of voronoi diagrams for single class samples and multi-class samples in Fig.~\ref{conflict-evaluation}.
+We apply conflicts ratio to evaluate the difference between desired centroid locations.
+Conflicts ratio is defined as 
+\begin{equation*}
+  R=\sum\limits_{i=1}^n\frac{||C_i^I-C_i^C||}{nD}
+\end{equation*}
+where $C_i^I$ and $C_i^C$ are centroid locations of voronoi diagrams of the $i-th$ sample for individual class samples and combined class samples,
+$D=\sum\limits_{i=1}^nD_i/n$ the mean of nearest neighbor distances for every samples and $D_i$ is the distance between the $i-th$ sample and its nearest neighbor sample,
+$n$ is the number of samples.
+
 
 \textbf{Adaptive multi-class sampling on ramp.}
 To evaluate multi-class blue noise sampling on non-uniform density function,
