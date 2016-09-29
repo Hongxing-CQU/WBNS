@@ -1,5 +1,84 @@
 \section{Results}
 
+\begin{figure}[htb]
+\centering
+\subfigure[]{
+\label{one-class-a}
+   \includegraphics[width=.4\textwidth]{figure/one-class-1024-1.png}
+}
+\subfigure[]{
+\label{one-class-b}
+   \includegraphics[width=.45\textwidth]{figure/remp.png}
+}
+\caption{
+Comparisons of CCVT, BOT and our algorithm for a single class blue noise sampling.
+(a) shows the comparison for the case of constant density.
+(b) shows the comparison on for the case of a quadratic density function. }
+\label{one-class-sampling}
+\end{figure}
+
+\begin{figure*}[htb]
+  \centering
+ \subfigure[{CCVT[Balzer et al. 2009]}]{
+  \label{fig:eight:a}
+  \includegraphics[width=0.48\textwidth]{figure/sampling-ratio-CCVT.png}}
+   \subfigure[{Ours}]{
+  \label{fig:eight:b}
+  \includegraphics[width=0.48\textwidth]{figure/sampling-ratio-our.png}}
+
+  \caption{Adaptive two-class sampling of a non-uniform density function with 1000 points for each class.
+  The percentages in each quarter indicate ink density of different color in the image. In contrast,
+  our results show precise adaptation for every single sampling and total sampling.}\label{adaptive sampling}
+\end{figure*}
+
+\begin{figure*}[]
+\centering
+\subfigure[{ Dart throwing [Wei 2010]}]{
+   \includegraphics[width=0.40\textwidth]{figure/2-class-weiliyi.png}
+   \label{two-class-sampling-a}
+}%
+\hspace{0.1in}
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,1)/3$}]{
+   \includegraphics[width=.40\textwidth]{figure/2-111.png}
+   \label{two-class-sampling-a}
+}\\
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,2)/4$}]{
+   \includegraphics[width=.40\textwidth]{figure/2-112.png}
+   \label{two-class-sampling-c}
+}%
+\hspace{0.1in}
+\subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,6)/8$}]{
+   \includegraphics[width=.40\textwidth]{figure/2-116.png}
+}%
+\caption{The comparison of Wei's algorithm and our algorithm for two-class blue noise sampling.
+In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ are the weighted parameters for red samples, blue samples and the combined samples.
+The number of samples for each class is 1000.
+The weighted parameter $\lambda_i$ makes an influence on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
+Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
+}\label{two-class-sampling}
+\end{figure*}
+
+\begin{figure*}[htb]
+  \centering
+  % Requires \usepackage{graphicx}\textwidth
+  \subfigure[{Dart throwing [Wei 2010]}]{
+
+  \includegraphics[width=0.9\textwidth]{figure/3-weiliyi.png}}
+  \subfigure[Our method]{
+
+  \includegraphics[width=0.9\textwidth]{figure/3-our.png}}
+  \subfigure[Our method]{
+
+  \includegraphics[width=0.9\textwidth]{figure/3-sph.png}}
+  \caption{The comparison of Wei's algorithm and our algorithm for three-class blue noise sampling.
+  $\lambda_{1,2,3,4,5,6,7}=(1,1,1,2,2,2,9)/18$.
+  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for each individual class.
+  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for combined classes with two individual class.
+  $\lambda_8$ is the weighted parameters for the total samples.
+  The number of samples of each individual class is $1024$.}
+  \label{three-class-sampling}
+\end{figure*}
+
 \begin{table}
 \caption{\label{comparing-table}
 Comparison of several frequencies and spatial statistics of sampling patterns.
@@ -21,63 +100,6 @@ $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement
 \end{table}
 
 
-
-\begin{table}
-\center
-\caption{\label{time-table-singleclass}
-Comparison of sampling times of multi-class blue noise sampling.
-Original points are generated from a constant density function.
-The resolution of original points is $128\times 128$.
-}
-
- \begin{tabular}{c|c|c|c|c}
- {Sampling} & {Sampling} &
- %\multirow{2}*{Original Points} &
- \multicolumn{3}{c}{ Times(s)} \\ \cline{3-5}
- \multirow{2}*{Points} & \multirow{2}*{Rate}
-   & [Balzer et & [De Goes &  \multirow{2}* {Ours} \\
-   &  & al. 2009] &  et al. 2012] & \\ \hline
-
-
-
- % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
-
-   32 & 1/512&   0.203 & $0.325$ & 0.404 \\ \hline
-   64 & 1/256& 0.187 & 0.407 & 0.346  \\ \hline
-   128 & 1/128&  0.202 & 0.436 & 0.433  \\ \hline
-   256 & 1/64& 0.375 & 0.568 & 0.474  \\ \hline
-   512 & 1/32& 1.076 & 0.739 & 0.669  \\ \hline
-   1024 & 1/16& 2.184 & 1.137 & 1.048  \\ \hline
-   2048 & 1/8&  8.408 & 2.269 & 2.025  \\ \hline
-
-  \end{tabular}\\
-\end{table}
-
-
-\begin{table}
-\center
-\caption{\label{time-table-multiclass}
-Comparison of sampling times of single blue noise sampling.
-The number of sampling points of every individual class is 512.
-The sampling rate is $1/16$ for every individual class sampling.
-}
-
- \begin{tabular}{c|c|c}
- {Number of} &
- %\multirow{2}*{Original Points} &
- \multicolumn{2}{c}{ Times(s)} \\ \cline{2-3}
-  Class & [Wei 2010] & Ours \\ \hline
-
-
- % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
-
-   2 & 34.769 & 14.670  \\ \hline
-   3 & 151.727 & 37.553   \\ \hline
-   7 & 414.031 & 212.133 \\ \hline
-
-
-  \end{tabular}\\
-\end{table}
 
 \begin{figure*}[htb]
   \centering
@@ -146,7 +168,7 @@ Furthermore,
 we also make an evaluation of blue noise sampling for an intensity ramp in Fig.~\ref{one-class-sampling}
 by counting the number of points for each
 quarter of the ramp.
-It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and BOT~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
+It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and ~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
 
 \textbf{Multi-class sampling on constant density.}
 To evaluate blue noise distribution for multi-class sampling,
@@ -177,7 +199,7 @@ To evaluate efficiency of relaxing conflicts of desired centroid locations in ou
 we compare our approach with Wei's method~\cite{wei:2010:multi} on the
 difference between centroid locations of voronoi diagrams for single class samples and multi-class samples in Fig.~\ref{conflict-evaluation}.
 We apply conflicts ratio to evaluate the difference between desired centroid locations.
-Conflicts ratio is defined as 
+Conflicts ratio is defined as
 \begin{equation*}
   R=\sum\limits_{i=1}^n\frac{||C_i^I-C_i^C||}{nD}
 \end{equation*}
@@ -283,10 +305,62 @@ Updating the matrix spends most of running time.
 However, the matrix is a sparse matrix.
 Thus, we can furthermore improve the performance of our approach by making use of a sparse distance matrix.
 
+\begin{table}
+\center
+\caption{\label{time-table-singleclass}
+Comparison of sampling times of multi-class blue noise sampling.
+Original points are generated from a constant density function.
+The resolution of original points is $128\times 128$.
+}
 
+ \begin{tabular}{c|c|c|c|c}
+ {Sampling} & {Sampling} &
+ %\multirow{2}*{Original Points} &
+ \multicolumn{3}{c}{ Times(s)} \\ \cline{3-5}
+ \multirow{2}*{Points} & \multirow{2}*{Rate}
+   & [Balzer et & [De Goes &  \multirow{2}* {Ours} \\
+   &  & al. 2009] &  et al. 2012] & \\ \hline
+ % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
+
+   32 & 1/512&   0.203 & $0.325$ & 0.404 \\ \hline
+   64 & 1/256& 0.187 & 0.407 & 0.346  \\ \hline
+   128 & 1/128&  0.202 & 0.436 & 0.433  \\ \hline
+   256 & 1/64& 0.375 & 0.568 & 0.474  \\ \hline
+   512 & 1/32& 1.076 & 0.739 & 0.669  \\ \hline
+   1024 & 1/16& 2.184 & 1.137 & 1.048  \\ \hline
+   2048 & 1/8&  8.408 & 2.269 & 2.025  \\ \hline
+   4096 & 1/4 & 30.841 & 4.406 & 4.005 \\ \hline
+
+  \end{tabular}\\
+\end{table}
+
+
+\begin{table}
+\center
+\caption{\label{time-table-multiclass}
+Comparison of sampling times of single blue noise sampling.
+The number of sampling points of every individual class is 512.
+The sampling rate is $1/16$ for every individual class sampling.
+}
+
+ \begin{tabular}{c|c|c}
+ {Number of} &
+ %\multirow{2}*{Original Points} &
+ \multicolumn{2}{c}{ Times(s)} \\ \cline{2-3}
+  Class & [Wei 2010] & Ours \\ \hline
+
+
+ % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
+
+   2 & 34.769 & 14.670  \\ \hline
+   3 & 151.727 & 37.553   \\ \hline
+   7 & 414.031 & 212.133 \\ \hline
+
+
+  \end{tabular}\\
+\end{table}
 %We measure the timing via a uniform sampling.
 %The number of all samples is 2048.
 %The number of discrete points $M=128\times 128$.
 %Only total set is considered as a combined class.
 %Table. shows the computation times of our algorithm.
-

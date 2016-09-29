@@ -317,21 +317,3 @@ shows the pseudocode of this schedule.
 
 %To avoid the algorithm to stuck in local minima,
 %a simulated annealing strategy is introduced to the gradient descent method.
-
-\begin{figure*}[htb]
-  \centering
-  % Requires \usepackage{graphicx}\textwidth
-  \subfigure[{Dart throwing [Wei 2010]}]{
-
-  \includegraphics[width=1.0\textwidth]{figure/3-class-weiliyi.png}}
-  \subfigure[Our method]{
-
-  \includegraphics[width=1.0\textwidth]{figure/3-class-our.png}}
-  \caption{The comparison of Wei's algorithm and our algorithm for three-class blue noise sampling.
-  $\lambda_{1,2,3,4,5,6,7}=(1,1,1,2,2,2,9)/18$.
-  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for each individual class.
-  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for combined classes with two individual class.
-  $\lambda_8$ is the weighted parameters for the total samples.
-  The number of samples of each individual class is $1024$.}
-  \label{three-class-sampling}
-\end{figure*}
