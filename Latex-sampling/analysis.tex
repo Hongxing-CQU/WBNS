@@ -1,22 +1,5 @@
 \section{Results}
 
-\begin{figure}[htb]
-\centering
-\subfigure[]{
-\label{one-class-a}
-   \includegraphics[width=.4\textwidth]{figure/one-class-1024-1.png}
-}
-\subfigure[]{
-\label{one-class-b}
-   \includegraphics[width=.45\textwidth]{figure/remp.png}
-}
-\caption{
-Comparisons of CCVT, BOT and our algorithm for a single class blue noise sampling.
-(a) shows the comparison for the case of constant density.
-(b) shows the comparison on for the case of a quadratic density function. }
-\label{one-class-sampling}
-\end{figure}
-
 \begin{figure*}[htb]
   \centering
  \subfigure[{CCVT[Balzer et al. 2009]}]{
@@ -26,29 +9,36 @@ Comparisons of CCVT, BOT and our algorithm for a single class blue noise samplin
   \label{fig:eight:b}
   \includegraphics[width=0.48\textwidth]{figure/sampling-ratio-our.png}}
 
-  \caption{Adaptive two-class sampling of a non-uniform density function with 1000 points for each class.
-  The percentages in each quarter indicate ink density of different color in the image. In contrast,
-  our results show precise adaptation for every single sampling and total sampling.}\label{adaptive sampling}
+  \caption{Evaluation on sampling ratio.
+  The number of sampling points is $1024$.
+  From left to right, sampling ratios are $1/(4,8,16,32,64)$,
+  and the number of sampling points is $1024$.
+  When the sampling ratio is no more than $1/4$,
+  blue noise property is preserved well in our approach.
+    % 随着这个的增加，ccvt方法蓝噪特性越来越好，
+  % 但对我们的而言，当采用比例小于等于1/4时候，采样比就影响不大
+  }
+  \label{sampling-ratio}
 \end{figure*}
 
 \begin{figure*}[]
 \centering
 \subfigure[{ Dart throwing [Wei 2010]}]{
-   \includegraphics[width=0.40\textwidth]{figure/2-class-weiliyi.png}
+   \includegraphics[width=0.38\textwidth]{figure/2-class-weiliyi.png}
    \label{two-class-sampling-a}
 }%
 \hspace{0.1in}
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,1)/3$}]{
-   \includegraphics[width=.40\textwidth]{figure/2-111.png}
+   \includegraphics[width=.38\textwidth]{figure/2-111.png}
    \label{two-class-sampling-a}
 }\\
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,2)/4$}]{
-   \includegraphics[width=.40\textwidth]{figure/2-112.png}
+   \includegraphics[width=.38\textwidth]{figure/2-112.png}
    \label{two-class-sampling-c}
 }%
 \hspace{0.1in}
 \subfigure[{ Our algorithm:$\lambda_{1,2,3}=(1,1,6)/8$}]{
-   \includegraphics[width=.40\textwidth]{figure/2-116.png}
+   \includegraphics[width=.38\textwidth]{figure/2-116.png}
 }%
 \caption{The comparison of Wei's algorithm and our algorithm for two-class blue noise sampling.
 In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ are the weighted parameters for red samples, blue samples and the combined samples.
@@ -57,6 +47,80 @@ The weighted parameter $\lambda_i$ makes an influence on the trade-off between g
 Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
 }\label{two-class-sampling}
 \end{figure*}
+
+We ran our algorithm on a variety of inputs:
+from constant density to stripe and point set surface.
+Various illustrations based on regularity and spectral analysis are
+used throughout the paper to allow easy evaluation of our algorithm and  demonstrate how they  are compared to previous works.
+We use methods in~\cite{schlomer:2011:accurate} and~\cite{wei:2011:differential} to analyze the
+spectrum properties of sample distributions in two dimensional space and two dimensional manifold separately.
+For spatial uniformity,
+the relative radius~\cite{Lagae:2008:CPDD} is used to analyze the spatial uniformity.
+
+
+
+\textbf{Single class sampling.}
+Blue noise point distribution for a constant density
+shows a characteristic blue noise profile in spectral space
+and a typical spatial arrangement.
+In Fig.~\ref{one-class-sampling},
+we compare our algorithm with CCVT~\cite{balzer:2009:capacity} and BOT~\cite{de:2012:blue} method for the case of constant density in spectral space.
+We also provide evaluations of the spatial properties in Table~\ref{comparing-table}.
+Furthermore,
+we also make an evaluation of blue noise sampling for an intensity ramp in Fig.~\ref{one-class-sampling}
+by counting the number of points for each
+quarter of the ramp.
+It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and ~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
+
+Since the involved numerical optimization is based on discrete representation of sampled density functions in our approach,
+we evaluate the effect of sampling ratio($n/m$) on blue noise property by comparing our approach with CCVT~\cite{balzer:2009:capacity} in Fig.~\ref{sampling-ratio}.
+When the sampling ratio is equal to $1/4$,
+Sampling on CCVT~\cite{balzer:2009:capacity} doesn't show blue noise property well.
+With the decreasing sampling ratio, blue noise property is shown more and more well.
+However,
+the sampling ratio doesn't make an important effect on our approach.% when the sampling ratio is no more than $1/4$.
+The reason is that the relaxed transport plan makes more original points exert influence on one sampling points in our approach, other than the nearest original points in CCVT~\cite{balzer:2009:capacity}.
+
+
+
+\textbf{Multi-class sampling on constant density.}
+To evaluate blue noise distribution for multi-class sampling,
+we first analyse the simplest case where all classes have the constant density function and same number of samples.
+Fig.~\ref{two-class-sampling}, Fig.~\ref{three-class-sampling},
+and Fig.~\ref{seven-class-sampling} illustrate the result generated by our method and Wei's ~\cite{wei:2010:multi} on two-class, three-class, and seven-class sampling separately.
+In two-class sampling (Fig.~\ref{two-class-sampling}),
+we illustrate the influence of the weighted parameter $\lambda_i$ on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
+Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
+Depending on which distribution is more important,
+$\lambda_i$ can be chosen for different applications.
+When $\lambda_1+\lambda_2=\lambda_3$,
+the balance between good distribution of the samples belonging to each individual class and good distribution of total samples
+is achieved in Fig.~\ref{two-class-sampling-c}.
+Fig.~\ref{two-class-sampling-a} and Fig.~\ref{two-class-sampling-c},
+show that our results are comparable to that of Wei's.
+In three-class sampling (Fig.~\ref{three-class-sampling}),
+we evaluate blue noise distribution of samples of different combined classes.
+Compared with Wei's method~\cite{wei:2010:multi},
+ blue noise profile of the combined class with two individual class is improved in our method
+while blue noise distribution of each individual class is preserved.
+In seven-class sampling (Fig.~\ref{seven-class-sampling}),
+blue noise profile  is still kept for samples of each individual class and total class.
+It shows that our method is feasible for more numbers of class sampling.
+
+% 做一个
+To evaluate efficiency of relaxing conflicts of desired centroid locations in our approach,
+we compare our approach with Wei's method~\cite{wei:2010:multi} on the
+difference between centroid locations of voronoi diagrams for single class samples and multi-class samples in Fig.~\ref{conflict-evaluation}.
+We apply conflicts ratio to evaluate the difference between desired centroid locations.
+Conflicts ratio is defined as
+\begin{equation*}
+  R=\sum\limits_{i=1}^n\frac{||C_i^I-C_i^C||}{nD}
+\end{equation*}
+where $C_i^I$ and $C_i^C$ are centroid locations of voronoi diagrams of the $i-th$ sample for individual class samples and combined class samples,
+$D=\sum\limits_{i=1}^nD_i/n$ the mean of nearest neighbor distances for every samples and $D_i$ is the distance between the $i-th$ sample and its nearest neighbor sample,
+$n$ is the number of samples.
+
+
 
 \begin{figure*}[htb]
   \centering
@@ -78,28 +142,6 @@ Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
   The number of samples of each individual class is $1024$.}
   \label{three-class-sampling}
 \end{figure*}
-
-\begin{table}
-\caption{\label{comparing-table}
-Comparison of several frequencies and spatial statistics of sampling patterns.
-}
-
- \begin{tabular}{c|c|c|c|c|c}
-
- % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
-  \hline
-   Methods & $v_{eff}$ & $\Omega$ & $\delta_{min}$ & $\delta_{avg}$ & $Q_6$ \\ \hline
-  {[Balzer et al. 2009]}& 0.88& 2.395 & 0.765 & 0.886 & 0.488 \\
-  {[De Goes et al. 2012]} & 0.855 & 2.014 & 0.739 & 0.872 & 0.417 \\
-   Our algorithm & 0.865 & 2.136 & 0.76 & 0.877 & 0.42 \\ \hline
-  \end{tabular}\\
-  Notes:$v_{eff} $ and $\Omega$ are the effective Nyquist and oscillation measures.
-The value of $\delta_{min}$ corresponds to the Poisson disk radius,
-and $\delta_{avg}$ roughly measures how uniform of the points are distributed~\cite{schlomer:2011:farthest}.
-$Q_6$ measures the similarity of a point distribution to a hexagonal arrangement~\cite{kansal:2000:nonequilibrium}
-\end{table}
-
-
 
 \begin{figure*}[htb]
   \centering
@@ -148,64 +190,6 @@ $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement
   \caption{Two-class blue noise sampling on a point set surface.
   $\lambda_{1,2,3}=(1,1,2)/4$, and the number of samples belonging to each class is $2000$.  }\label{bunny-sampling}
 \end{figure}
-We ran our algorithm on a variety of inputs:
-from constant density to stripe and point set surface.
-Various illustrations based on regularity and spectral analysis are
-used throughout the paper to allow easy evaluation of our algorithm and  demonstrate how they  are compared to previous works.
-We use methods in~\cite{schlomer:2011:accurate} and~\cite{wei:2011:differential} to analyze the
-spectrum properties of sample distributions in two dimensional space and two dimensional manifold separately.
-For spatial uniformity,
-the relative radius~\cite{Lagae:2008:CPDD} is used to analyze the spatial uniformity.
-
-\textbf{Single class sampling.}
-Blue noise point distribution for a constant density
-shows a characteristic blue noise profile in spectral space
-and a typical spatial arrangement.
-In Fig.~\ref{one-class-sampling},
-we compare our algorithm with CCVT~\cite{balzer:2009:capacity} and BOT~\cite{de:2012:blue} method for the case of constant density in spectral space.
-We also provide evaluations of the spatial properties in Table~\ref{comparing-table}.
-Furthermore,
-we also make an evaluation of blue noise sampling for an intensity ramp in Fig.~\ref{one-class-sampling}
-by counting the number of points for each
-quarter of the ramp.
-It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and ~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
-
-\textbf{Multi-class sampling on constant density.}
-To evaluate blue noise distribution for multi-class sampling,
-we first analyse the simplest case where all classes have the constant density function and same number of samples.
-Fig.~\ref{two-class-sampling}, Fig.~\ref{three-class-sampling},
-and Fig.~\ref{seven-class-sampling} illustrate the result generated by our method and Wei's ~\cite{wei:2010:multi} on two-class, three-class, and seven-class sampling separately.
-In two-class sampling (Fig.~\ref{two-class-sampling}),
-we illustrate the influence of the weighted parameter $\lambda_i$ on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
-Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
-Depending on which distribution is more important,
-$\lambda_i$ can be chosen for different applications.
-When $\lambda_1+\lambda_2=\lambda_3$,
-the balance between good distribution of the samples belonging to each individual class and good distribution of total samples
-is achieved in Fig.~\ref{two-class-sampling-c}.
-Fig.~\ref{two-class-sampling-a} and Fig.~\ref{two-class-sampling-c},
-show that our results are comparable to that of Wei's.
-In three-class sampling (Fig.~\ref{three-class-sampling}),
-we evaluate blue noise distribution of samples of different combined classes.
-Compared with Wei's method~\cite{wei:2010:multi},
- blue noise profile of the combined class with two individual class is improved in our method
-while blue noise distribution of each individual class is preserved.
-In seven-class sampling (Fig.~\ref{seven-class-sampling}),
-blue noise profile  is still kept for samples of each individual class and total class.
-It shows that our method is feasible for more numbers of class sampling.
-
-% 做一个
-To evaluate efficiency of relaxing conflicts of desired centroid locations in our approach,
-we compare our approach with Wei's method~\cite{wei:2010:multi} on the
-difference between centroid locations of voronoi diagrams for single class samples and multi-class samples in Fig.~\ref{conflict-evaluation}.
-We apply conflicts ratio to evaluate the difference between desired centroid locations.
-Conflicts ratio is defined as
-\begin{equation*}
-  R=\sum\limits_{i=1}^n\frac{||C_i^I-C_i^C||}{nD}
-\end{equation*}
-where $C_i^I$ and $C_i^C$ are centroid locations of voronoi diagrams of the $i-th$ sample for individual class samples and combined class samples,
-$D=\sum\limits_{i=1}^nD_i/n$ the mean of nearest neighbor distances for every samples and $D_i$ is the distance between the $i-th$ sample and its nearest neighbor sample,
-$n$ is the number of samples.
 
 
 \textbf{Adaptive multi-class sampling on ramp.}

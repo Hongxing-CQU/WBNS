@@ -238,6 +238,45 @@ For blue noise sampling,
 $\rho_i^j$ is a constant and $\rho_i^j=1/n_i$.
 Thus, we need only to compute variables $X$ in Eq. ~\ref{eq:combined-wasserstein-barycenter} .
 
+\begin{figure}[ht]
+\centering
+\subfigure[]{
+\label{one-class-a}
+   \includegraphics[width=.4\textwidth]{figure/one-class-1024-1.png}
+}
+\subfigure[]{
+\label{one-class-b}
+   \includegraphics[width=.45\textwidth]{figure/remp.png}
+}
+\caption{
+Comparisons of CCVT, BOT and our algorithm for a single class blue noise sampling.
+(a) shows the comparison for the case of constant density.
+(b) shows the comparison on for the case of a quadratic density function. }
+\label{one-class-sampling}
+\end{figure}
+
+
+
+\begin{table}
+\caption{\label{comparing-table}
+Comparison of several frequencies and spatial statistics of sampling patterns.
+}
+ \begin{tabular}{c|c|c|c|c|c}
+
+ % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
+  \hline
+   Methods & $v_{eff}$ & $\Omega$ & $\delta_{min}$ & $\delta_{avg}$ & $Q_6$ \\ \hline
+  {[Balzer et al. 2009]}& 0.88& 2.395 & 0.765 & 0.886 & 0.488 \\
+  {[De Goes et al. 2012]} & 0.855 & 2.014 & 0.739 & 0.872 & 0.417 \\
+   Our algorithm & 0.865 & 2.136 & 0.76 & 0.877 & 0.42 \\ \hline
+  \end{tabular}\\
+  Notes:$v_{eff} $ and $\Omega$ are the effective Nyquist and oscillation measures.
+The value of $\delta_{min}$ corresponds to the Poisson disk radius,
+and $\delta_{avg}$ roughly measures how uniform of the points are distributed~\cite{schlomer:2011:farthest}.
+$Q_6$ measures the similarity of a point distribution to a hexagonal arrangement~\cite{kansal:2000:nonequilibrium}
+\end{table}
+
+
 Every probability measure $\nu_i$ in Eq.~\ref{eq:combined-wasserstein-barycenter} may be a continuous probability measure or a discrete probability measure.
 If $\nu_i$ is a continuous probability measure,
 we must discretize  $\nu_i$ as a discrete probability measure
