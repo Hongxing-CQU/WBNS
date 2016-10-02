@@ -63,18 +63,18 @@ Blue noise point distribution for a constant density
 shows a characteristic blue noise profile in spectral space
 and a typical spatial arrangement.
 In Fig.~\ref{one-class-sampling},
-we compare our algorithm with CCVT~\cite{balzer:2009:capacity} and BOT~\cite{de:2012:blue} method for the case of constant density in spectral space.
+we compare our algorithm with CCVT~\cite{balzer:2009:capacity} and CCVT-PD~\cite{de:2012:blue} method for the case of constant density in spectral space.
 We also provide evaluations of the spatial properties in Table~\ref{comparing-table}.
 Furthermore,
 we also make an evaluation of blue noise sampling for an intensity ramp in Fig.~\ref{one-class-sampling}
 by counting the number of points for each
 quarter of the ramp.
-It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and ~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
+It can be shown that our algorithm is comparable to CCVT~\cite{balzer:2009:capacity} and CCVT-PD~\cite{de:2012:blue} for both the cases of constant density and the intensity ramp.
 
 Since the involved numerical optimization is based on discrete representation of sampled density functions in our approach,
 we evaluate the effect of sampling ratio ($n/m$) on blue noise property by comparing our approach with CCVT~\cite{balzer:2009:capacity} in Fig.~\ref{sampling-ratio}.
 When the sampling ratio is equal to $1/4$,
-Sampling on CCVT~\cite{balzer:2009:capacity} doesn't show blue noise property well.
+sampling on CCVT~\cite{balzer:2009:capacity} doesn't show blue noise property well.
 With the decreasing sampling ratio, blue noise property is shown more and more well.
 However,
 the sampling ratio doesn't make an important effect on our approach.% when the sampling ratio is no more than $1/4$.
@@ -113,15 +113,16 @@ difference between centroid locations of voronoi diagrams for single class sampl
 We apply conflicts ratio to evaluate the difference between desired centroid locations.
 Conflicts ratio is defined as
 \begin{equation*}
-  R=\sum\limits_{i=1}^n\frac{||C_i^I-C_i^C||}{nD}
+  R=\frac{\sum\limits_{i=1}^N\sum\limits_{j=1}^{n_i}||C_{x_i^j}^I-C_{x_i^j}^C||}{\sum\limits_{i=1}^N\sum\limits_{j=1}^{n_i}D(x_i^j)}
 \end{equation*}
-where $C_i^I$ and $C_i^C$ are centroid locations of voronoi diagrams of the $i-th$ sample for individual class samples and combined class samples,
-$D=\sum\limits_{i=1}^nD_i/n$ the mean of nearest neighbor distances for every samples and $D_i$ is the distance between the $i-th$ sample and its nearest neighbor sample,
+where $C_{x_i^j}^I$ and $C_{x_i^j}^C$ are centroid locations of voronoi diagrams of the sample ${x_i^j}$ for individual class samples and combined class samples,
+,and $D(x_i^j)$ is the distance between the sample $x_i^j$ and its nearest neighbor sample,
 $n$ is the number of samples.
 Compared with Wei's approach~\shortcite{wei:2010:multi},
 conflicts ratio in our approach is decreased approximately by $50\%$.
-It shows that our approach avoids the failure case of 
-multi-class sampling on traditional Lloyd relaxation [Wei 2010].
+It shows that our approach avoids the failure case of
+multi-class sampling on traditional Lloyd relaxation [Wei 2010],
+and is an efficient relaxation method for multi-class sampling.
 
 \begin{figure*}[htb]
   \centering
@@ -203,9 +204,9 @@ it can be seen that our results show noticeably less noise.
 
 \textbf{Multi-class sampling on point set surface.}
 Our method can be directly applied to multi-class sampling on point set surface.
-We assume that original points represent a discrete probability measure $\nu=\sum\limits_{m=1}^{M}\rho_m\delta_{x_m}$ as Eq.~\ref{density-function} on the surface.
-$\rho_m$ is set as the normalized area element at the point $x_m$ for multi-class blue noise sampling with constant density function.
-$D_{m,j}$ is the geodesic distance.
+We assume that original points represent a discrete probability measure $\nu=\sum\limits_{k=1}^{m}\varrho_k\delta_{y^k}$ as Eq.~\ref{eq:discrete-prbability-measure} on the surface.
+$\varrho_k$ is set as the normalized area element at the point $y^k$ for multi-class blue noise sampling with constant density function.
+$D_i^{(j,k)}$ is the geodesic distance.
 For convenience,
 we applied the Euclidean distance instead of the geodesic distance in this paper.
 Samples are initialized on the surface.
@@ -218,18 +219,12 @@ and show the Differential Domain Function~\cite{wei:2011:differential} to demons
 
 \textbf{Multi-class blue noise sampling with different sizes.}
 Analogous to setting different radius of Possion disks for different class in dart throwing,
-different sizes of samples can be set  via discrete probability measure $\bar\mu_k$ for different classes in our method.
-Suppose that the same constant density function $\rho_i (1\leq i\leq n)$ is used for different classes,
-we set the discrete probability density as:
-\begin{equation}\label{adaptive-size}
-  \bar\rho_{i,j}^k= \left\{
-  \begin{array} {cl}
-  \frac{1}{n_kN_i} & \exists k_l = i \\
-  0 & others
-  \end{array} \right..
-\end{equation}
+different sizes of samples can be set  via discrete probability measure $\mu_i$ for different classes in our method.
+Suppose that the same constant density function $\varrho_i (1\leq i\leq N)$ is used for different classes,
+we set the discrete probability density as $\rho_i^j=1/n_i$ for every individual class and $\rho_i^j=1/Nn_i$ for every combined class,
+where $N$ is the number of individual classes of the combined class.
 When two-class sampling is done with $N_1$ and $N_2$ samples ($N_1>N_2$) ,
-every sample belonging to the $2$-th class is given more measure than every sample belonging to the $1$-th in the combined class according to Eq.~\ref{adaptive-size}.
+every sample belonging to the $2$-th class is given more measure than every sample belonging to the $1$-th in the combined class.
 When the density function of the combined class is a constant function,
 the $2$-th sample is with larger size than the $1$-th sample.
 The radius of every sample can be approximated as:
@@ -283,7 +278,7 @@ our approach is faster than power diagrams method~\cite{de:2012:blue} by over $1
 For mutli-class blue noise sampling,
 we compare our method with Wei's method~\cite{wei:2010:multi} on running time in Table~\ref{time-table-multiclass}.
 Our approach is two times faster than Wei's method~\cite{wei:2010:multi} at least.
-So far, 
+So far,
 we use a global distance matrix in our algorithm.
 More memory space is needed to store the matrix in our algorithm than other algorithm.
 In every iteration,
