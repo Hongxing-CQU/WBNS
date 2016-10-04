@@ -288,32 +288,32 @@ However, we also notice that the matrix is a sparse matrix in general.
 Thus, we can furthermore improve the performance of our approach by making use of a sparse distance matrix.
 
 \begin{table}
-\center
 \caption{\label{time-table-singleclass}
 Comparison of sampling times of multi-class blue noise sampling.
 Original points are generated from a constant density function.
 The resolution of original points is $128\times 128$.
 }
-
- \begin{tabular}{c|c|c|c|c}
- {Sampling} & {Sampling} &
+\center
+ \begin{tabular}{c|c|c|c|c |c}
+ {\small{Sampling}} & {\small{Sampling}} &
  %\multirow{2}*{Original Points} &
- \multicolumn{3}{c}{ Times(s)} \\ \cline{3-5}
- \multirow{2}*{Points} & \multirow{2}*{Rate}
-   & [Balzer et & [De Goes &  \multirow{2}* {Ours} \\
-   &  & al. 2009] &  et al. 2012] & \\ \hline
+ \multicolumn{3}{c}{ \small {Times(s)}}  & \multicolumn{1}{|c}{\small{Memory(M)}}\\ \cline{3-6} 
+ \multirow{2}*{\small{Points}} & \multirow{2}*{\small{Rate}}
+   & {\small{[Balzer et}} & { \small {[De Goes}} &  \multirow{2}* {\small{Ours}} &  \multirow{2}* {\small{Ours}} \\
+   &  & {\small{al. 2009]}} & {\small{ et al. 2012]}} & & \\ \hline
  % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
 
-   32 & 1/512&   0.203 & $0.325$ & 0.404 \\ \hline
-   64 & 1/256& 0.187 & 0.407 & 0.346  \\ \hline
-   128 & 1/128&  0.202 & 0.436 & 0.433  \\ \hline
-   256 & 1/64& 0.375 & 0.568 & 0.474  \\ \hline
-   512 & 1/32& 1.076 & 0.739 & 0.669  \\ \hline
-   1024 & 1/16& 2.184 & 1.137 & 1.048  \\ \hline
-   2048 & 1/8&  8.408 & 2.269 & 2.025  \\ \hline
-   4096 & 1/4 & 30.841 & 4.406 & 4.005 \\ \hline
+   32 & 1/512&   0.203 & $0.325$ & 0.404 & 6.19 \\ \hline
+   64 & 1/256& 0.187 & 0.407 & 0.346  & 12.19\\ \hline
+   128 & 1/128&  0.202 & 0.436 & 0.433 & 24.19 \\ \hline
+   256 & 1/64& 0.375 & 0.568 & 0.474 & 48.19 \\ \hline
+   512 & 1/32& 1.076 & 0.739 & 0.669 & 96.19 \\ \hline
+   1024 & 1/16& 2.184 & 1.137 & 1.048 & 192.2 \\ \hline
+   2048 & 1/8&  8.408 & 2.269 & 2.025 & 384.21 \\ \hline
+   4096 & 1/4 & 30.841 & 4.406 & 4.005 & 768.23 \\ \hline
 
   \end{tabular}\\
+  
 \end{table}
 
 
@@ -325,18 +325,18 @@ The number of sampling points of every individual class is 512.
 The sampling rate is $1/16$ for every individual class sampling.
 }
 
- \begin{tabular}{c|c|c}
+ \begin{tabular}{c|c|c|c}
  {Number of} &
  %\multirow{2}*{Original Points} &
- \multicolumn{2}{c}{ Times(s)} \\ \cline{2-3}
-  Class & [Wei 2010] & Ours \\ \hline
+ \multicolumn{2}{c}{ Times(s)} & \multicolumn{1}{|c}{ Memory(M)} \\ \cline{2-4}
+  Class & [Wei 2010] & Ours  & Ours\\ \hline
 
 
  % after \\: \hline or \cline{col1-col2} %\cline{col3-col4}
 
-   2 & 34.769 & 14.670  \\ \hline
-   3 & 151.727 & 37.553   \\ \hline
-   7 & 414.031 & 212.133 \\ \hline
+   2 & 34.769 & 14.670 & 128.11  \\ \hline
+   3 & 151.727 & 37.553 & 288.11  \\ \hline
+   7 & 414.031 & 212.133 & 448.31 \\ \hline
 
 
   \end{tabular}\\
