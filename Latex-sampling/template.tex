@@ -107,9 +107,9 @@
   %  \begin{minipage}{0.23\textwidth}
   \includegraphics[width=0.24\textwidth]{figure/bumpy-sphere3.png}
   \end{minipage}
-  \caption{Multi-class blue noise sampling  with different sizes on three same constant density functions.
+  \caption{Multi-class blue noise sampling  with different sizes on three identical constant density functions.
   Sample distribution with larger size remains blue noise pattern,
-  and sample distribution with smaller size might deviate from blue noise pattern.
+  and sample distribution with smaller size might deviate from the blue noise pattern.
   The number of samples for each class is $62$, $250$, $1000$ (top) and $100$, $300$, $900$(bottom).
   The weighted parameters are set as $\lambda_{1,2,3,4}=(1,1,1,1)/4$.
   % with$62, 250, 1000$ $100$,
@@ -120,20 +120,20 @@
 \maketitle
 
 \begin{abstract}
-Sampling is a core component for many applications such as imaging,
+Sampling is a core component of many applications including: imaging,
 rendering, geometry processing and visualization. Prior research
-has mainly focused on blue noise sampling with a single
+has primarily focused on blue noise sampling with a single
 class of samples. Limited research has been done on multi-class
-sampling; especially, multi-class blue noise sampling is still a challenging problem
-when the density distribution of every class is nonuniform and different from each
+sampling. Multi-class blue noise sampling is still a challenging problem
+when the density distribution of every class is non-uniform and different from each
 other. In this paper, we present a Wasserstein blue
 noise sampling algorithm for multi-class sampling by throwing samples
-as Wasserstein barycenter of multiple density distributions. We
-employ a more general representation of optimal transport problem
-to break the partition necessary in other optimal sampling.
-Moreover, adaptive blue noise distribution property for every
+as the Wasserstein barycenter of multiple density distributions. We
+employ a more general representation of the optimal transport problem
+to break up the partition necessary in other optimal sampling.
+Moreover, an adaptive blue noise distribution property for every
 individual class is guaranteed, as well as their combined class.
-Furthermore, the efficiency of sampling is improved by applying
+The sampling efficiency  is also improved by applying the 
 Wasserstein distance with entropic constraints. Our method can
 be applied to multi-class sampling on the point set surface. We also
 demonstrate applications in object distribution and color stippling.

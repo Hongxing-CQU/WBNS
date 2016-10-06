@@ -1,8 +1,8 @@
 \section{Algorithm}
 
 In the paper,
-we take a single class blue noise samples  as the wasserstein barycenter of a probability measure.
-Multi-class blue noise samples are chosen as the combined wasserstein barycenter of multiple probability measures.
+we take single class blue noise samples  as the Wasserstein barycenter of a probability measure.
+Multi-class blue noise samples are chosen as the combined Wasserstein barycenter of multiple probability measures.
 \subsection{Single class blue noise sampling}
 Given an arbitrary space $\Omega$ and a density function $\varrho(x)$ on the space $\Omega$,
 a probability measure is defined as:
@@ -14,7 +14,7 @@ a probability measure is defined as:
 \end{equation}
 Sampling the density function $\varrho(x)$ consists of picking a few representative points $x_i$
 that capture $\varrho$ well.
-These representative points $x_i$ represents a discrete probability measure $\mu$,
+These representative points $x_i$ represent a discrete probability measure $\mu$,
 \begin{equation*}
 \begin{split}
   \mu=\sum\limits_{i=1}^n\rho_i\delta_{x_i} \quad
@@ -24,11 +24,10 @@ These representative points $x_i$ represents a discrete probability measure $\mu
   \end{array} \right.
   \end{split}
 \end{equation*}
-where $n$ is the number of samples,
+where $n$ is the number of samples and
 $\rho_i$ is the probability at $x_i$.
-Thus,
-sampling means that $\mu$ captures $\nu$ well.
-We can use Wasserstein barycenter to model a single class sampling as:
+Sampling, therefore, means that $\mu$ captures $\nu$ well.
+We can use the Wasserstein barycenter to model a single class sampling as:
 \begin{equation}\label{single-class-problem}
 \begin{split}
  \mu=arg\min\limits_\mu W_p^p(\mu,\nu)=\inf\limits_\mu\int_{X\times\Omega}d(x_i,y)^pd\pi(x_i,y)\\
@@ -38,7 +37,7 @@ We can use Wasserstein barycenter to model a single class sampling as:
 where $X=\{x_1,x_2,...,x_n\}\subseteq\Omega$.
 
 Compared with previous methods on CCVT~\cite{balzer:2009:capacity,de:2012:blue},
-Wasserstein barycenter provides a more general framework for sampling.
+the Wasserstein barycenter provides a more general framework for sampling.
 Previous methods on CCVT are special cases of Eq.~\ref{single-class-problem} with an implicit constraint on  transport plan $\pi$,
 that is
 \begin{equation}\label{eq:transform-plan}
@@ -51,7 +50,7 @@ and the power diagram region of sampling points in~\cite{de:2012:blue}.
 In fact,
 Eq.~\ref{eq:transform-plan} is a very strict condition for the variational problem in Eq.~\ref{single-class-problem}.
 It can only be satisfied when $\nu$ is a continuous probability measure.
-It also introduces "failure case" for multi-class sampling~\cite{wei:2010:multi}.
+It also introduces a "failure case" for multi-class sampling~\cite{wei:2010:multi}.
 We will discuss the reason in the next subsection.
 
 \subsection{Multi-class blue noise sampling}
@@ -77,7 +76,7 @@ which is combined by  the $i_1th,...,i_kth$ classes,
 \begin{equation*}
     \varrho_{i_1,i_2,...,i_k}=(\varrho_{i_1}+\varrho_{i_2}+...,+\varrho_{i_k})/k
 \end{equation*}
-Let $X_i$ is sampling points of the probability density function $\varrho_i$,
+Let $X_i$ be sampling points of the probability density function $\varrho_i$,
 \begin{equation*}
   X_i=\{x_i^1,x_i^2,...,x_i^{n_i}\}\quad(1\leq i\leq N), x_i^j\in\Omega(1\leq j\leq n_i),
 \end{equation*}
@@ -90,8 +89,8 @@ and the probability measure $\nu_i(N<i\leq 2^N-1)$ corresponds to $\varrho_{i_1,
 For sampling points $X_i$ or $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$,
 there is a corresponding discrete probability measure $\mu_i(1\leq i\leq 2^N-1)$.
 For multi-class blue noise sampling,
-every class sampling points $X_i$ captures the probability function $\varrho_i$ well,
-and combined sampling points $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$ captures the probability density function $\varrho_{i_1,i_2,...,i_k}$ well too.
+every class sampling point $X_i$ captures the probability function $\varrho_i$ well,
+and combined sampling points $\{X_{i_1}, X_{i_2},...,X_{i_k}\}$ also capture the probability density function $\varrho_{i_1,i_2,...,i_k}$ well.
 Thus,
 every discrete probability measure $\mu_i$ should approximate corresponding probability measure $\nu_i$ well.
 
@@ -105,29 +104,29 @@ We describe multi-class sampling as a combined Wasserstein barycenter,
 \end{equation}
 where $\bar\mu=\{\mu_1,...,\mu_N,\mu_{N+1},...\mu_{K}\}$,
 $\mu_i(1\leq i\leq N)$  is a discrete probability measure corresponding to $X_i$,
-$\mu_i(N < i\leq K)$ is a discrete probability measure corresponding to combined sampling points,
+$\mu_i(N < i\leq K)$ is a discrete probability measure corresponding to combined sampling points and
 $K-N$ is the number of combined classes.
 
-In extended version of~\cite{wei:2010:multi},
-Wei pointed out that multi-class sampling on traditional relaxation method~\cite{balzer:2009:capacity}
+In an extended version of~\cite{wei:2010:multi},
+Wei pointed out that multi-class sampling on a traditional relaxation method~\cite{balzer:2009:capacity}
  might result in insufficient sample
 uniformity for the reason below: for a given sample $s$,
 different class combinations may have different opinions about the desired centroid
 location to which $s$ should move.
 In essence,
 conflicts of desired centroid locations are introduced by the hard constraint on transport plans $\pi$ (Eq.~\ref{eq:transform-plan}).
-In traditional relaxation method~\cite{balzer:2009:capacity},
+In the traditional relaxation method~\cite{balzer:2009:capacity},
 the mass in a certain domain can only be transported to the nearest sampling point.
 Thus, the transport plan is local,
 and the minimum unit of transported mass is constrained by the resolution of the domain.
 The two limits make relaxing conflicts of desired centroid locations more difficult.
 
-To preserve sufficient sample uniformity for multi-class sampling,
+In order to preserve sufficient sample uniformity for multi-class sampling,
 the constraint on the transport plan (Eq.~\ref{eq:transform-plan})
-is broken via a more general transport plan $\pi$ in combined Wasserstein barycenter (Eq.~\ref{eq:combined-wasserstein-barycenter}).
+is broken through a more general transport plan $\pi$ in combined with a Wasserstein barycenter (Eq.~\ref{eq:combined-wasserstein-barycenter}).
 On one hand,
 $\pi$ is a separable transport plan in Eq.~\ref{eq:combined-wasserstein-barycenter},
-which means the mass located in a small domain can be transported to different samples other than only one sampling point.
+which means the mass, located in a small domain, can be transported to different samples other than only one sampling point.
 It extends the minimum unit of transported mass to computational accuracy.
 Furthermore,
 we relax transport plans via entropic regular terms as~\cite{cuturi:2013:sinkhorn}.
@@ -137,8 +136,8 @@ Regularized Wasserstein distance is defined as
 \end{equation}
 where $\epsilon$ is a positive regularization parameter,
 and $H(\pi)$ is the entropy of $\pi$.
-Entropic regularization terms expand transport range to whole domain other than nearest transport in traditional relaxation method~\cite{balzer:2009:capacity}.
-It provides more flexibility for reducing conflicts of desired centroid.
+Entropic regularization terms expand transport range to the whole domain rather than the nearest transport in traditional relaxation method~\cite{balzer:2009:capacity}.
+It provides more flexibility for reducing conflicts of the desired centroid.
 Compared with multi-class sampling~\cite{wei:2010:multi},
 our approach is an efficient relaxation method for multi-class blue noise sampling.
 
@@ -218,9 +217,9 @@ we represent it as:
  \mu_i=\sum\limits_{j=1}^{n_i}\rho_i^j\delta_{x_i^j} \quad s.t. \sum\limits_{j=1}^{n_i}\rho_i^j=1.
 \end{equation}
 where $\rho_i^j$ is probability at sampling point $x_i^j$ for the $i$th-class sampling
-, $n_i$ is the number of sampling points for the $i$th-class sampling.
+and $n_i$ is the number of sampling points for the $i$th-class sampling.
 For convenience of representation and computation,
-we extend discrete probability measure $\mu_i$ to all class sampling points.
+we extend the discrete probability measure $\mu_i$ to all class sampling points.
 We define all sampling points as
 \begin{equation}
  X=(X_1,X_2,...,X_N)^T=(x_1^1,...,x_1^{n_1},...,x_N^1,...,x_N^{n_N})^T.
@@ -229,7 +228,7 @@ We define all sampling points as
 \mathbf{g_i}=(\underbrace{0,0,...,0}_{\sum\limits_{j=1}^{i-1}n_j},\rho_i^1,\rho_i^2,...,\rho_i^{n_i},\underbrace{0,0,...,0}_{\sum\limits_{j=i+1}^{N}n_j})^T
 \end{equation}
 Thus,
-we can represent discrete probability measure $\mu_i$ as:
+we can represent the discrete probability measure $\mu_i$ as:
 \begin{equation}
   \mu_i=\sum\limits_{j=1}^{n}g_i^j\delta_{x_i^j}
 \end{equation}
@@ -272,7 +271,7 @@ Comparison of several frequencies and spatial statistics of sampling patterns.
   \end{tabular}\\
   Notes:$v_{eff} $ and $\Omega$ are the effective Nyquist and oscillation measures.
 The value of $\delta_{min}$ corresponds to the Poisson disk radius,
-and $\delta_{avg}$ roughly measures how uniform of the points are distributed~\cite{schlomer:2011:farthest}.
+and $\delta_{avg}$ roughly measures how uniformly the points are distributed~\cite{schlomer:2011:farthest}.
 $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement~\cite{kansal:2000:nonequilibrium}
 \end{table}
 
@@ -280,7 +279,7 @@ $Q_6$ measures the similarity of a point distribution to a hexagonal arrangement
 Every probability measure $\nu_i$ in Eq.~\ref{eq:combined-wasserstein-barycenter} may be a continuous probability measure or a discrete probability measure.
 If $\nu_i$ is a continuous probability measure,
 we must discretize  $\nu_i$ as a discrete probability measure
-to compute integrations required in Eq. ~\ref{eq:combined-wasserstein-barycenter} by quadrature,
+to compute the integrations required in Eq. ~\ref{eq:combined-wasserstein-barycenter} by quadrature,
 \begin{equation}\label{eq:discrete-prbability-measure}
 \nu_i=\sum\limits_{j=1}^{m_i}\varrho_i^j\delta_{y_i^j} \quad s.t. \sum\limits_{j=1}^{m_i}\varrho_i^j=1
 \end{equation}
@@ -290,7 +289,7 @@ $\varrho_i$ is approximated with a positive piecewise constant function,
 $\varrho_i$ is the probability density function of the probability measure $\nu_i$,
 and $m_i$ is the number of discrete points of the $i$th-class probability measure $\nu_i$.
 In this paper,
-we apply a regular discretization with same area for all sampling points $y_i^j$.
+we apply a regular discretization with the same area for all sampling points $y_i^j$.
 We also apply the same sampling points for all probability measures $\nu_i$,
 which is
 \begin{equation*}
@@ -299,7 +298,7 @@ m_i=m_k=m, y_i^j=y_k^j=y^j \quad{i\neq k}.
 Thus, we use $\mathbf{Y}=(y^1,y^2,...,y^m)^T$ to represent all sampling points for probability measures $\nu_i$.
 Based on discrete representation of probability measures in Eq.~\ref{eq:discrete-prbability-measure},
 %and regularized Wasserstein distance (Eq.~\ref{eq:regulate-wasserstein-distance}),
-variational problem (Eq.~\ref{eq:combined-wasserstein-barycenter}) can be represented as:
+the variational problem (Eq.~\ref{eq:combined-wasserstein-barycenter}) can be represented as:
 \begin{equation}\label{eq:discrete-multi-problem}
   \begin{aligned}
   \mathbf{X}=\arg\min\limits_{\mathbf{X}}\sum\limits_{i=1}^K\lambda_i<\mathbf{D}_i,\mathbf{\Pi}_i> \\
@@ -317,7 +316,7 @@ where
  We apply a loop iteration algorithm to extremize the variational problem by repeatedly performing a minimization step over positions $\mathbf{X}$ followed by a projection step over transport plans $\mathbf{\Pi}_k$.
 
  For a fixed set of points $\mathbf X$,
- we compute  relaxed transport plans via regularized Wasserstein distance (Eq.\ref{eq:regulate-wasserstein-distance}).
+ we compute  relaxed transport plans through a  regularized Wasserstein distance (Eq.\ref{eq:regulate-wasserstein-distance}).
  For every transport plan matrix $\mathbf{\Pi}_k$,
  Eq.\ref{eq:regulate-wasserstein-distance} can be discretized as
  \begin{equation}\label{eq:discrete-regulate-wasserstein-barycenter}
@@ -341,7 +340,7 @@ $\mathbf{X}$ can be obtained by Newton iterative method,
 \begin{equation}\label{eq:position-iterative}
   \mathbf{X}\leftarrow(1-\theta)\mathbf{X}+\theta\mathbf{Y}\mathbf{\Pi}_i^T diag({\rho_i}^{-1}) \quad (0\leq\theta\leq 1)
 \end{equation}
-To improve randomness of samples,
+To improve the randomness of samples,
 we apply a random Newton iterative method to update all sampling points $\mathbf{X}$ simultaneously,
 \begin{equation}
 \begin{split}
