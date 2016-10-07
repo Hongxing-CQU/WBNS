@@ -9,7 +9,7 @@
   \label{fig:eight:b}
   \includegraphics[width=0.48\textwidth]{figure/sampling-ratio-our.png}}
 
-  \caption{Evaluation on sampling ratio.
+  \caption{Evaluation of sampling ratio.
   The number of sampling points is $1024$.
   From left to right, sampling ratios are $1/(4,8,16,32,64)$,
   and the number of sampling points is $1024$.
@@ -42,7 +42,7 @@
 \caption{The comparison of Wei's algorithm and our algorithm for two-class blue noise sampling.
 In our algorithm, $\lambda_1$,$\lambda_2$,$\lambda_3$ are the weighted parameters for red samples, blue samples and the combined samples.
 The number of samples for each class is 1000.
-The weighted parameter $\lambda_i$ makes an influence on the trade-off between good distribution of the samples belonging to each individual class and good distribution of total samples.
+The weighted parameter $\lambda_i$ has an influence on the trade-off between a good distribution of the samples belonging to each individual class and a good distribution of total samples.
 Large $\lambda_i$ preserves the blue noise property of the $i$-$th$ well.
 }\label{two-class-sampling}
 \end{figure*}
@@ -138,7 +138,7 @@ and is an efficient relaxation method for multi-class sampling.
   \caption{The comparison of Wei's algorithm, SPH and our algorithm for three-class blue noise sampling.
   $\lambda_{1,2,3,4,5,6,7}=(1,1,1,2,2,2,9)/18$.
   $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for each individual class.
-  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for combined classes with two individual class.
+  $\lambda_1$,$\lambda_2$ and $\lambda_3$ are weighted parameters for combined classes with two individual classes.
   $\lambda_8$ is the weighted parameters for the total samples.
   The number of samples of each individual class is $1024$.}
   \label{three-class-sampling}
@@ -157,7 +157,7 @@ and is an efficient relaxation method for multi-class sampling.
   \caption{Seven-class blue noise sampling on our algorithm.
   $\lambda_{1,2,3,4,5,6,7,8}=(1,1,1,1,1,1,1,7)/14$.
   $\lambda_1,\cdots,\lambda_7$ is weighted parameters for each individual class,
-  $\lambda_8$ is the weighted parameter for the total set.
+  $\lambda_8$ are the weighted parameter for the total set.
   The number of samples of each individual class is $1024$.}\label{seven-class-sampling}
 \end{figure*}
 
@@ -240,19 +240,19 @@ our method is applied for three-class blue noise sampling with different sizes o
 
 
 \textbf{Complexity.}
-One iteration of our algorithm involves iterative bregman projection.
+One iteration of our algorithm involves an iterative bregman projection.
 The time complexity depends on what classes are involved in the framework.
 For a single class sampling,
 the time complexity is $O(MN)$.
 Although this is worse than $O(NlogN+M)$,
-iterative bregman projection can be easily parallelized on the GPU.
+an iterative bregman projection can be easily parallelized on the GPU.
 When only a total set is used as a combined class,
 the time complexity is $O(2MN)$.
 If all $2^n-1$ classes are involved,
 the complexity is $O(2^{n-1}MN)$.
 For a general application,
 only a combined class of the total set is enough to generate a good point distribution.
-Thus, it is significantly better than CapCVT~\cite{chen:2012:variational} which is $O(nMN+nN^2)$.
+Therefore, it is significantly better than CapCVT~\cite{chen:2012:variational} which is $O(nMN+nN^2)$.
 While our algorithm performs well for small datasets,
 our method is limited by its memory requirements $O(2MN)$ for large datasets, such as the experiment in Fig.~\ref{Color stippling}.
 
@@ -260,31 +260,30 @@ our method is limited by its memory requirements $O(2MN)$ for large datasets, su
 % 用的什么设备
 % 针对单类做了什么，结论是什么
 % 针对多类做了什么，结论是什么
-All of our performance are locked on a workstation with Intel Xeon 3.50GHz
+All of our performance is locked on a workstation with Intel Xeon 3.50GHz
 dual-core CPUs and 32GB memory, and NVIDIA Quadro K5000 GPU with 2GB memory.
 For single blue noise sampling,
-we compare our method with traditional CCVT~\cite{balzer:2009:capacity}
-and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}
-Since the most time is spend for integral computation in power diagrams method~\cite{de:2012:blue} and distance matrix computation in our approach,
-CCVT~\cite{balzer:2009:capacity} performs more better in running time than these two method when sampling rate is lower than $1/64$.
-With the increasing of sampling points or the decreasing of sampling rate,
+we compare our method with the traditional CCVT~\cite{balzer:2009:capacity}
+and power diagrams method~\cite{de:2012:blue} on running time in Table~\ref{time-table-singleclass}.
+Since the most time is spend on integral computation in the power diagrams method~\cite{de:2012:blue} and distance matrix computation in our approach,
+CCVT~\cite{balzer:2009:capacity} performs much better in running time than these two methods when the sampling rate is lower than $1/64$.
+With the increasing of the sampling points or the decreasing of sampling rate,
 our approach outperforms CCVT~\cite{balzer:2009:capacity} and power diagrams~\cite{de:2012:blue}.
 With the increasing of sampling points,
-our approach is more and more faster than CCVT~\cite{balzer:2009:capacity},
-and is two times faster than CCVT~\cite{balzer:2009:capacity} at least.
+our approach is  faster than CCVT~\cite{balzer:2009:capacity},
+and is at least two times faster than CCVT~\cite{balzer:2009:capacity}.
 With the increasing of sampling points,
-our approach is faster than power diagrams method~\cite{de:2012:blue} by over $10\%$.
+our approach is faster than the power diagrams method~\cite{de:2012:blue} by over $10\%$.
 For mutli-class blue noise sampling,
 we compare our method with Wei's method~\cite{wei:2010:multi} on running time in Table~\ref{time-table-multiclass}.
-Our approach is two times faster than Wei's method~\cite{wei:2010:multi} at least.
-So far,
-we use a global distance matrix in our algorithm.
-More memory space is needed to store the matrix in our algorithm than other algorithm.
+Our approach is at least two times faster than Wei's method~\cite{wei:2010:multi}.
+We have used a global distance matrix in our algorithm.
+More memory space is needed to store the matrix in our algorithm than in the other algorithm.
 In every iteration,
-updating the matrix spends most of running time.
-Thus, our approach faces a challenge when numbers of original points and sampling points are large.
-However, we also notice that the matrix is a sparse matrix in general.
-Thus, we can furthermore improve the performance of our approach by making use of a sparse distance matrix.
+updating the matrix accounts for most of the running time.
+ Our approach, therefore, faces a challenge when the numbers of original points and sampling points are large.
+However, we also notice that it is, in general, a sparse matrix.
+It is possible to further improve the performance of our approach by making use of a sparse distance matrix.
 
 \begin{table}
 \caption{\label{time-table-singleclass}
