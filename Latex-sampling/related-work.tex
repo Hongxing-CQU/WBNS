@@ -11,12 +11,12 @@ There are three classical methods to generate blue noise
 distributions.
 The first one is stochastic sampling.
 Dart throwing was firstly introduced by
-Cook in 1986~\cite{cook:1986:stochastic}. 
+Cook in 1986~\cite{cook:1986:stochastic}.
 During the sampling, dart throwing positions
 samples one by one randomly and accepts a new sample just when there are no
-other samples within a disk of a given radius surrounding it. 
+other samples within a disk of a given radius surrounding it.
 The basic idea
-is simple and easy to implement but extremely time-consuming. 
+is simple and easy to implement but extremely time-consuming.
 It is possible that it might never terminate.
 Since then, many variations of dart throwing were proposed to
 solve the problem~\cite{Mitchell:1987:generating,dunbar:2006:spatial,white:2007:poisson,wei:2008:parallel,gamito:2009:accurate,ebeida:2011:efficient}.
@@ -88,8 +88,8 @@ and $P(\Omega\times\Omega)$ to indicate the set of probability measures on the p
 \begin{equation*}
  P(\Omega)=\{\mu|\mu(\phi)=0,\mu(\Omega)=1, 0\leq\mu(U)\leq 1 (U\subseteq\Omega)\}.
 \end{equation*}
-\hl{where $\mu(U)=\int_{U\in\Omega}\rho(x)dx$ is a probability measure on $\Omega$,}  
-\hl{and $(\rho(x)\geq0)$ is a probability density function on $\Omega$.}
+where $\mu(U)=\int_{U\in\Omega}\rho(x)dx$ is a probability measure on $\Omega$,
+and $(\rho(x)\geq0)$ is a probability density function on $\Omega$.
 
 %For any point $x\in\Omega$, $\delta_x$ is the Dirac unit mass on $x$.
 
@@ -98,8 +98,8 @@ the $p$-Wasserstein distance~\cite{villani:2008:optimal} between $\mu$ and $\nu$
 \begin{equation*}
   W_p(\mu,\nu)=\left(\inf\limits_{\pi\in\prod(\mu,\nu)}\int_{\Omega\times\Omega}d(x,y)^pd\pi(x,y)\right )^{1/p}, (p\geq1)
 \end{equation*}
-\hl{where $d(x,y)$ is the cost for transporting one unit of mass from $x$ to $y$,}
-\hl{and  $\prod(\mu,\nu)$ is the subset in $P(\Omega\times\Omega)$, and meets mass conservation laws}
+where $d(x,y)$ is the cost of transporting one unit of mass from $x$ to $y$,
+and  $\prod(\mu,\nu)$ is the subset in $P(\Omega\times\Omega)$ and meets mass conservation laws
 \begin{equation*}
 \prod(\mu,\nu)=\{\pi\in P(\Omega,\Omega)|\pi(\cdot,\Omega)=\mu,\pi(\Omega,\cdot)=\nu\}.
 \end{equation*}

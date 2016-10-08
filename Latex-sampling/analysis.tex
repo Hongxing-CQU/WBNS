@@ -277,13 +277,14 @@ our approach is faster than the power diagrams method~\cite{de:2012:blue} by ove
 For mutli-class blue noise sampling,
 we compare our method with Wei's method~\cite{wei:2010:multi} on running time in Table~\ref{time-table-multiclass}.
 Our approach is at least two times faster than Wei's method~\cite{wei:2010:multi}.
-\hl{In Table}~\ref{time-table-singleclass} \hl{and}~\ref{time-table-multiclass},
-\hl{we also show the memory usage in our approach for single class sampling and multi-class sampling. }
-\hl{Since we have used a global distance matrix in our algorithm,}
-\hl{more memory space is needed to store the matrix in our algorithm than in the other algorithm.}
-\hl{In every iteration,}
-\hl{updating the matrix accounts for most of the running time.}
-\hl{Our approach, therefore, faces a challenge when the numbers of original points and sampling points are large.}
+In Tables~\ref{time-table-singleclass} and~\ref{time-table-multiclass},
+we also show the memory usage in our approach for single class and multi-class sampling. 
+Since we have used a global distance matrix in our algorithm,
+more memory space is needed to store the matrix in our algorithm than in the other algorithm.
+In every iteration,
+updating the matrix accounts for most of the running time.
+Our approach, therefore, faces a challenge when
+there are large numbers of original points and sampling points.
 However, we also notice that it is, in general, a sparse matrix.
 It is possible to further improve the performance of our approach by making use of a sparse distance matrix.
 
